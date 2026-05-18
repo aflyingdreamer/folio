@@ -8,6 +8,13 @@ describe('todayIsoIn', () => {
     expect(todayIsoIn('UTC', utc)).toBe('2026-05-18')
     expect(todayIsoIn('Asia/Ho_Chi_Minh', utc)).toBe('2026-05-18')
   })
+
+  it('handles east-of-UTC rollover', () => {
+    // 2026-05-17 23:30 UTC = 2026-05-18 08:30 in Tokyo (UTC+9)
+    const utc = new Date(Date.UTC(2026, 4, 17, 23, 30))
+    expect(todayIsoIn('Asia/Tokyo', utc)).toBe('2026-05-18')
+    expect(todayIsoIn('UTC', utc)).toBe('2026-05-17')
+  })
 })
 
 describe('formatDateBanner', () => {

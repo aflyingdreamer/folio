@@ -1,5 +1,4 @@
-@keyframes folio-caret { 0%, 49% { opacity: 1 } 50%, 100% { opacity: 0 } }
-.folio-caret { caret-color: #1c1917; animation: folio-caret 1s steps(1) infinite; }
+.folio-caret { caret-color: #1c1917; }
 @keyframes folio-fade-in { from { opacity: 0 } to { opacity: 1 } }
 .folio-fade-in { animation: folio-fade-in 600ms ease-out both; }
 @keyframes folio-fade-dim { from { color: #1c1917 } to { color: #d6d3d1 } }
