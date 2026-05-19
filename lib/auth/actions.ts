@@ -61,6 +61,24 @@ export async function requestPasswordReset(formData: FormData) {
   return { error: null, sent: true }
 }
 
+export async function saveDisplayName(formData: FormData) {
+  const name = String(formData.get('name') ?? '').trim().slice(0, 60)
+  if (!name) return { error: 'a name is required.' }
+
+  const supabase = createClient()
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
+  if (!user) return { error: 'please sign in again.' }
+
+  const { error } = await supabase
+    .from('user_meta')
+    .upsert({ user_id: user.id, display_name: name }, { onConflict: 'user_id' })
+  if (error) return { error: error.message.toLowerCase() }
+
+  redirect('/welcome?first=1')
+}
+
 export async function updatePassword(formData: FormData) {
   const password = String(formData.get('password') ?? '')
   if (password.length < 6) return { error: 'password must be at least 6 characters.' }
