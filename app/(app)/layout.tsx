@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import { TzCapture } from '@/lib/tz/capture'
 import { ArchiveDrawer } from '@/components/archive/archive-drawer'
+import { TipButton } from '@/components/tip/tip-button'
 import { signOut } from '@/lib/auth/sign-out'
 
 export default async function AppLayout({ children }: { children: React.ReactNode }) {
@@ -17,6 +18,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
       <nav data-folio-nav className="fixed top-6 right-6 font-mono text-xs text-stone-400 flex items-center gap-4 z-40">
         <Link href="/today" className="hover:text-stone-700">today</Link>
         <ArchiveDrawer />
+        <TipButton />
         <form action={signOut}>
           <button
             type="submit"
