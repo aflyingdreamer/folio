@@ -2,6 +2,7 @@ import { createClient } from '@/lib/supabase/server'
 import { listEntryDatesForYear, getUserTimezone } from '@/lib/entries/queries'
 import { todayIsoIn } from '@/lib/dates/today'
 import { CalendarMonths } from '@/components/archive/calendar-months'
+import Link from 'next/link'
 
 export default async function ArchivePage() {
   const supabase = createClient()
@@ -16,9 +17,9 @@ export default async function ArchivePage() {
       <h1 className="font-mono text-sm text-stone-500 mb-12">{year}</h1>
       <CalendarMonths year={year} entryDates={set} />
       <p className="mt-16 font-mono text-xs text-stone-400">
-        <a href="/today" className="underline">
+        <Link href="/today" className="underline">
           today
-        </a>
+        </Link>
       </p>
     </main>
   )
