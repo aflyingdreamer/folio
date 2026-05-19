@@ -77,12 +77,12 @@ export function WritingSurface({ entryDate, dateLabel, initialContent, initialWo
   }
 
   return (
-    <div className="mx-auto w-full max-w-3xl px-6 py-24 relative">
+    <div className="mx-auto w-full max-w-3xl px-6 pt-28 pb-20 sm:py-24 relative">
       <DateBanner text={dateLabel} count={count} goal={GOAL} saving={saving} />
       {focusOn && (
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 px-6 py-32 font-serif text-lg leading-loose whitespace-pre-wrap"
+          className="pointer-events-none absolute inset-0 px-6 pt-28 pb-20 sm:py-32 font-serif text-base sm:text-lg leading-loose whitespace-pre-wrap"
         >
           {paragraphs.map((p, i) => (
             <p key={i} className={i === activeIdx ? 'folio-active-paragraph' : 'folio-dim-paragraph'}>
@@ -98,7 +98,7 @@ export function WritingSurface({ entryDate, dateLabel, initialContent, initialWo
         onChange={handleChange}
         onSelect={(e) => setCaret(e.currentTarget.selectionStart)}
         placeholder="begin anywhere. three pages, no rules."
-        className={`folio-caret w-full resize-none overflow-hidden bg-transparent focus:outline-none font-serif text-lg leading-loose relative ${focusOn ? 'text-transparent' : ''}`}
+        className={`folio-caret w-full resize-none overflow-hidden bg-transparent focus:outline-none font-serif text-base sm:text-lg leading-loose relative ${focusOn ? 'text-transparent' : ''}`}
         spellCheck={false}
       />
       <CompletionRule show={completed} />
