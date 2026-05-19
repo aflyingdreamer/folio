@@ -40,16 +40,17 @@ export function WelcomeScene({
       <p className="font-serif text-4xl sm:text-5xl text-stone-900 text-balance text-center animate-folio-fade-in">
         {greeting}
       </p>
-      <figure className="mt-16 max-w-md text-center animate-folio-fade-in-late">
-        <blockquote className="font-serif italic text-stone-500 text-lg leading-relaxed text-balance">
+      <figure className="mt-10 sm:mt-16 max-w-md text-center animate-folio-fade-in-late">
+        <blockquote className="font-serif italic text-stone-500 text-base sm:text-lg leading-relaxed text-balance">
           &ldquo;{quote.text}&rdquo;
         </blockquote>
         <figcaption className="mt-4 font-mono text-xs text-stone-400">
           — {quote.author}
         </figcaption>
       </figure>
-      <p className="mt-20 font-mono text-xs text-stone-300">
-        press enter to continue
+      <p className="mt-12 sm:mt-20 font-mono text-xs text-stone-300">
+        <span className="sm:hidden">tap anywhere to continue</span>
+        <span className="hidden sm:inline">press enter to continue</span>
       </p>
     </main>
   )
