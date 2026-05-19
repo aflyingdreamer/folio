@@ -1,7 +1,7 @@
 import { createClient } from '@/lib/supabase/server'
 import { getEntryForDate, listEntryDatesForYear } from '@/lib/entries/queries'
 import { formatDateBanner } from '@/lib/dates/today'
-import { DatePickerHeader } from '@/components/archive/date-picker'
+import { ReadOnlyEntry } from '@/components/editor/read-only-entry'
 import { notFound } from 'next/navigation'
 
 export default async function EntryPage({ params }: { params: { date: string } }) {
@@ -15,26 +15,11 @@ export default async function EntryPage({ params }: { params: { date: string } }
   const year = Number(params.date.slice(0, 4))
   const dates = [...(await listEntryDatesForYear(user!.id, year))]
   return (
-    <article className="mx-auto max-w-[72ch] px-6 py-16">
-      <header className="mb-12">
-        <DatePickerHeader
-          dateIso={params.date}
-          dateLabel={formatDateBanner(params.date)}
-          writtenDates={dates}
-        />
-      </header>
-      <div className="font-serif text-lg leading-loose whitespace-pre-wrap text-stone-900">
-        {entry.content}
-      </div>
-      <p className="mt-16 font-mono text-xs text-stone-400">
-        <a href="/archive" className="underline">
-          archive
-        </a>{' '}
-        ·{' '}
-        <a href="/today" className="underline">
-          today
-        </a>
-      </p>
-    </article>
+    <ReadOnlyEntry
+      dateIso={params.date}
+      dateLabel={formatDateBanner(params.date)}
+      content={entry.content}
+      writtenDates={dates}
+    />
   )
 }

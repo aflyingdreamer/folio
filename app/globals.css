@@ -24,4 +24,7 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+  .folio-caret { caret-color: #78716c; }
+  .folio-active-paragraph { color: #1c1917; }
+  .folio-dim-paragraph { color: #d6d3d1; transition: color 200ms ease; }
 }

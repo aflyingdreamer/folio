@@ -1,7 +1,15 @@
 import Link from 'next/link'
 import { eachDayOfInterval, startOfMonth, endOfMonth, format, getDay } from 'date-fns'
 
-export function CalendarMonths({ year, entryDates }: { year: number; entryDates: Set<string> }) {
+export function CalendarMonths({
+  year,
+  entryDates,
+  todayIso,
+}: {
+  year: number
+  entryDates: Set<string>
+  todayIso?: string
+}) {
   const months = Array.from({ length: 12 }, (_, m) => m)
   return (
     <div className="space-y-12">
@@ -22,15 +30,29 @@ export function CalendarMonths({ year, entryDates }: { year: number; entryDates:
               {days.map((d) => {
                 const iso = format(d, 'yyyy-MM-dd')
                 const hit = entryDates.has(iso)
+                const isToday = iso === todayIso
+                const ring = isToday ? 'ring-2 ring-stone-900 ring-offset-1' : ''
+                const href = isToday ? '/today' : `/archive/${iso}`
                 return hit ? (
                   <Link
                     key={iso}
-                    href={`/archive/${iso}`}
-                    className="aspect-square bg-stone-900 hover:bg-stone-700"
+                    href={href}
+                    className={`aspect-square bg-stone-900 hover:bg-stone-700 ${ring}`}
+                    title={iso}
+                  />
+                ) : isToday ? (
+                  <Link
+                    key={iso}
+                    href="/today"
+                    className={`aspect-square border border-stone-200 hover:bg-stone-100 ${ring}`}
                     title={iso}
                   />
                 ) : (
-                  <div key={iso} className="aspect-square border border-stone-200" title={iso} />
+                  <div
+                    key={iso}
+                    className="aspect-square border border-stone-200"
+                    title={iso}
+                  />
                 )
               })}
             </div>

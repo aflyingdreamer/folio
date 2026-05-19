@@ -1,18 +1,19 @@
 'use client'
 import { useEffect, useRef, useState } from 'react'
-import { forwardWordCount } from '@/lib/words/count'
+import { countWords } from '@/lib/words/count'
 import { upsertEntry } from '@/lib/entries/actions'
 import { CompletionRule } from './completion-rule'
+import { DateBanner } from './date-banner'
 
-type Props = { entryDate: string; initialContent: string; initialWordCount: number }
+type Props = { entryDate: string; dateLabel: string; initialContent: string; initialWordCount: number }
 
 const GOAL = 750
 const DEBOUNCE_MS = 1500
-const FOCUS_FADE_AFTER_FIRST_KEYSTROKE = true
+const FOCUS_FADE_AFTER_FIRST_KEYSTROKE = false
 
-export function WritingSurface({ entryDate, initialContent, initialWordCount }: Props) {
+export function WritingSurface({ entryDate, dateLabel, initialContent, initialWordCount }: Props) {
   const [text, setText] = useState(initialContent)
-  const [count, setCount] = useState(initialWordCount)
+  const [count, setCount] = useState(() => countWords(initialContent))
   const [caret, setCaret] = useState(0)
   const [saving, setSaving] = useState(false)
   const [focusOn, setFocusOn] = useState(false)
@@ -33,20 +34,17 @@ export function WritingSurface({ entryDate, initialContent, initialWordCount }: 
     return () => window.removeEventListener('keydown', h)
   }, [])
 
-  // Typewriter scroll: keep the line containing the caret vertically centered.
+  // Auto-grow the textarea so the page (not the textarea) handles scroll.
   useEffect(() => {
     const ta = taRef.current
     if (!ta) return
-    const lineIndex = text.slice(0, caret).split('\n').length - 1
-    const lineHeightPx = parseFloat(getComputedStyle(ta).lineHeight || '28')
-    const desiredOffset = window.innerHeight / 2
-    const caretY = lineIndex * lineHeightPx + ta.getBoundingClientRect().top + window.scrollY
-    window.scrollTo({ top: caretY - desiredOffset, behavior: 'smooth' })
-  }, [caret, text])
+    ta.style.height = 'auto'
+    ta.style.height = `${ta.scrollHeight}px`
+  }, [text])
 
   function handleChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
     const next = e.target.value
-    const nextCount = forwardWordCount({ previousCount: countRef.current, currentText: next })
+    const nextCount = countWords(next)
     countRef.current = nextCount
     setText(next)
     setCount(nextCount)
@@ -79,7 +77,8 @@ export function WritingSurface({ entryDate, initialContent, initialWordCount }: 
   }
 
   return (
-    <div className="mx-auto max-w-[72ch] px-6 py-32 relative">
+    <div className="mx-auto w-full max-w-3xl px-6 py-24 relative">
+      <DateBanner text={dateLabel} count={count} goal={GOAL} saving={saving} />
       {focusOn && (
         <div
           aria-hidden
@@ -98,16 +97,11 @@ export function WritingSurface({ entryDate, initialContent, initialWordCount }: 
         value={text}
         onChange={handleChange}
         onSelect={(e) => setCaret(e.currentTarget.selectionStart)}
-        className={`folio-caret w-full min-h-[60vh] resize-none bg-transparent focus:outline-none font-serif text-lg leading-loose relative ${focusOn ? 'text-transparent' : ''}`}
+        placeholder="begin anywhere. three pages, no rules."
+        className={`folio-caret w-full resize-none overflow-hidden bg-transparent focus:outline-none font-serif text-lg leading-loose relative ${focusOn ? 'text-transparent' : ''}`}
         spellCheck={false}
       />
       <CompletionRule show={completed} />
-      <div className="fixed bottom-6 right-6 font-mono text-sm tabular-nums flex items-center gap-4">
-        {saving && <span className="text-stone-300">saving…</span>}
-        <span className={completed ? 'text-stone-900' : 'text-stone-400'}>
-          {count} / {GOAL}
-        </span>
-      </div>
     </div>
   )
 }
