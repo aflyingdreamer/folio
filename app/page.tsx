@@ -26,12 +26,13 @@ export default async function Home() {
       <section className="px-8 py-24 border-t border-stone-200/70">
         <div className="mx-auto max-w-2xl font-serif text-stone-600 leading-relaxed space-y-6">
           <p className="text-balance">
-            In 1992, Julia Cameron asked her readers to fill three
-            longhand pages every morning — unedited, unread, for no
-            one but themselves. She called them <em>morning pages</em>.
+            Hi, I&apos;m Brian — a frontend engineer who spends most
+            days in loud software. I made Folio for the opposite
+            reason: a small, quiet room on the internet where the
+            only thing asked of you is to show up and write.
           </p>
           <p className="text-balance">
-            In 2009, Buster Benson built{' '}
+            I started writing morning pages on paper, then on{' '}
             <a
               href="https://750words.com"
               className="underline underline-offset-4 decoration-stone-300 hover:decoration-stone-900"
@@ -39,13 +40,17 @@ export default async function Home() {
               rel="noreferrer"
             >
               750words.com
-            </a>{' '}
-            so people could do the same thing on a screen, privately,
-            every day. It&apos;s still running.
+            </a>
+            , and it changed how my mornings felt. Folio is my
+            tribute to that ritual — to Julia Cameron, who named it,
+            and to Buster Benson, who first put it online.
           </p>
           <p className="text-balance">
-            Folio is a quiet tribute to both. No streaks, no likes,
-            no algorithm — and the ritual is free, forever.
+            There are no streaks to defend, no likes to chase, no
+            algorithm watching. Just a page that waits for you each
+            morning, and forgets about you the rest of the day. If
+            that sounds like something you&apos;ve been looking for,
+            you&apos;re in the right place. The ritual is free, forever.
           </p>
         </div>
       </section>
