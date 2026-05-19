@@ -45,18 +45,18 @@ export default function About() {
         </p>
       </div>
 
-      <div className="mt-12">
-        <p className="font-mono text-xs text-stone-400 mb-3">
-          if folio is part of your mornings, you can leave a tip:
-        </p>
-        <iframe
-          id="kofiframe"
-          src="https://ko-fi.com/brianfolio/?hidefeed=true&widget=true&embed=true&preview=true"
-          style={{ border: 'none', width: '100%', padding: 4, background: '#f9f9f9' }}
-          height={712}
-          title="brianfolio"
-        />
-      </div>
+      <p className="mt-12 text-stone-500 text-balance">
+        if folio is part of your mornings, you can{' '}
+        <a
+          href="https://ko-fi.com/brianfolio"
+          className="underline underline-offset-4 decoration-stone-300 hover:decoration-stone-900"
+          target="_blank"
+          rel="noreferrer"
+        >
+          leave a tip
+        </a>
+        .
+      </p>
     </main>
   )
 }
