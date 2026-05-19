@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
+import { TypewriterLine } from '@/components/home/typewriter-line'
 
 export default async function Home() {
   const supabase = createClient()
@@ -10,44 +11,19 @@ export default async function Home() {
 
   if (user) redirect('/today')
 
-  const ctaHref = '/login'
-  const ctaLabel = 'start writing'
+  const year = new Date().getFullYear()
 
   return (
-    <main className="min-h-screen flex flex-col">
-      <header className="flex items-center justify-between px-8 py-6 font-mono text-sm">
-        <span className="font-serif text-xl text-stone-900">Folio</span>
-        <Link
-          href={ctaHref}
-          className="text-stone-700 hover:text-stone-900 underline underline-offset-4 decoration-stone-300 hover:decoration-stone-900 transition"
-        >
-          {ctaLabel}
-        </Link>
+    <main className="min-h-screen flex flex-col bg-stone-50 folio-paper-grain">
+      <header className="px-8 py-6 font-mono text-sm">
+        <span className="text-stone-700">folio</span>
       </header>
 
-      <section className="flex-1 flex items-center">
-        <div className="mx-auto max-w-2xl px-8 -mt-16">
-          <h1 className="font-serif text-5xl sm:text-6xl text-stone-900 leading-tight text-balance">
-            Wake.<br />
-            Write three pages.<br />
-            <span className="text-stone-400">Close the tab.</span>
-          </h1>
-          <p className="font-serif text-xl text-stone-600 leading-relaxed mt-10 max-w-lg text-balance">
-            A quiet daily writing space. No streaks, no badges,
-            no audience. Just you, the page, and tomorrow.
-          </p>
-          <div className="mt-12 font-mono text-sm">
-            <Link
-              href={ctaHref}
-              className="inline-block border border-stone-900 py-3 px-6 hover:bg-stone-900 hover:text-stone-50 transition"
-            >
-              {ctaLabel} →
-            </Link>
-          </div>
-        </div>
+      <section className="flex-1 flex items-center justify-center px-6 -mt-12">
+        <TypewriterLine ctaHref="/login" />
       </section>
 
-      <section className="border-t border-stone-200 px-8 py-16">
+      <section className="px-8 py-24 border-t border-stone-200/70">
         <div className="mx-auto max-w-2xl font-serif text-stone-600 leading-relaxed space-y-6">
           <p className="text-balance">
             In 1992, Julia Cameron asked her readers to fill three
@@ -65,7 +41,7 @@ export default async function Home() {
               750words.com
             </a>{' '}
             so people could do the same thing on a screen, privately,
-            every day. It's still running.
+            every day. It&apos;s still running.
           </p>
           <p className="text-balance">
             Folio is a small tribute to both. The ritual is free,
@@ -74,8 +50,36 @@ export default async function Home() {
         </div>
       </section>
 
-      <footer className="px-8 py-10 font-mono text-xs text-stone-400 text-center border-t border-stone-200">
-        made quietly · {new Date().getFullYear()}
+      <footer className="px-8 py-12 border-t border-stone-200/70 font-mono text-xs text-stone-400">
+        <div className="mx-auto max-w-4xl grid grid-cols-1 sm:grid-cols-2 gap-10 sm:gap-6">
+          <div className="space-y-2">
+            <p className="font-serif text-base text-stone-700">Folio</p>
+            <p>made quietly · {year}</p>
+          </div>
+          <div className="sm:text-right space-y-3">
+            <div className="leading-relaxed">
+              <p>a tribute</p>
+              <p>to morning pages by Julia Cameron</p>
+              <p>and to 750words.com by Buster Benson</p>
+            </div>
+            <div className="space-x-3">
+              <a
+                href="mailto:ducanhaof272@gmail.com"
+                className="hover:text-stone-700 transition"
+              >
+                contact
+              </a>
+              <span aria-hidden>·</span>
+              <Link href="/legal/privacy" className="hover:text-stone-700 transition">
+                privacy
+              </Link>
+              <span aria-hidden>·</span>
+              <Link href="/legal/terms" className="hover:text-stone-700 transition">
+                terms
+              </Link>
+            </div>
+          </div>
+        </div>
       </footer>
     </main>
   )
