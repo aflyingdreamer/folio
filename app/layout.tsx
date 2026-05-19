@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Lora, JetBrains_Mono } from 'next/font/google'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 import './globals.css'
 import '@/components/ui/font-styles.css'
 import { SoundProvider } from '@/components/sound/SoundProvider'
@@ -21,6 +22,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <SoundChrome />
           {children}
         </SoundProvider>
+        <SpeedInsights />
       </body>
     </html>
   )
