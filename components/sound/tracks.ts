@@ -13,7 +13,7 @@ export type Track = {
 }
 
 export const TRACKS: readonly Track[] = [
-  { slug: 'soft_rain',    label: 'soft rain',      src: '/sounds/soft-rain.mp3',    credit: { artist: 'TBD', source: 'TBD', licence: 'CC0' } },
+  { slug: 'soft_rain',    label: 'soft rain',      src: '/sounds/soft-rain.mp3',    credit: { artist: 'Ylmir', source: 'https://opengameart.org/content/rain-loopable', licence: 'CC0' } },
   { slug: 'room_tone',    label: 'room tone',      src: '/sounds/room-tone.mp3',    credit: { artist: 'TBD', source: 'TBD', licence: 'CC0' } },
   { slug: 'distant_cafe', label: 'distant café',   src: '/sounds/distant-cafe.mp3', credit: { artist: 'TBD', source: 'TBD', licence: 'CC0' } },
   { slug: 'fireplace',    label: 'fireplace',      src: '/sounds/fireplace.mp3',    credit: { artist: 'TBD', source: 'TBD', licence: 'CC0' } },
