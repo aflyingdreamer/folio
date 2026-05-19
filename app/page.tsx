@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 
 export default async function Home() {
@@ -7,8 +8,10 @@ export default async function Home() {
     data: { user },
   } = await supabase.auth.getUser()
 
-  const ctaHref = user ? '/today' : '/login'
-  const ctaLabel = user ? 'continue writing' : 'start writing'
+  if (user) redirect('/today')
+
+  const ctaHref = '/login'
+  const ctaLabel = 'start writing'
 
   return (
     <main className="min-h-screen flex flex-col">
