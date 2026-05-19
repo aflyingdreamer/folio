@@ -41,15 +41,20 @@ export function ArchiveDrawer() {
     const h = (e: KeyboardEvent) => {
       if (e.key === 'Escape') setOpen(false)
     }
+    const openEvt = () => setOpen(true)
     window.addEventListener('keydown', h)
-    return () => window.removeEventListener('keydown', h)
+    window.addEventListener('folio:open-archive', openEvt)
+    return () => {
+      window.removeEventListener('keydown', h)
+      window.removeEventListener('folio:open-archive', openEvt)
+    }
   }, [])
 
   return (
     <>
       <button
         onClick={() => setOpen((v) => !v)}
-        className="font-mono text-xs text-stone-400 hover:text-stone-700"
+        className="hidden sm:inline font-mono text-xs text-stone-400 hover:text-stone-700"
       >
         archive
       </button>
