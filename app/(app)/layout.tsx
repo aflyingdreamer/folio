@@ -15,7 +15,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
   return (
     <>
       <TzCapture />
-      <nav data-folio-nav className="fixed top-6 right-6 font-mono text-xs text-stone-400 flex items-center gap-5 z-40">
+      <nav data-folio-nav className="fixed top-6 right-6 font-mono text-xs text-stone-400 flex items-center gap-3 sm:gap-5 z-40">
         <SoundWaveform />
         <Link href="/today" className="hover:text-stone-700">today</Link>
         <ArchiveDrawer />
