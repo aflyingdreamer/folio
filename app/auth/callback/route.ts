@@ -12,5 +12,5 @@ export async function GET(request: Request) {
   if (error) {
     return NextResponse.redirect(`${origin}/login?error=expired`)
   }
-  return NextResponse.redirect(`${origin}/today`)
+  return NextResponse.redirect(`${origin}/auth/post-verify`)
 }
