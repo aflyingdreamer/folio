@@ -23,8 +23,8 @@ export default async function Home() {
         <TypewriterLine ctaHref="/login" />
       </section>
 
-      <footer className="px-8 py-6 font-mono text-xs text-stone-400">
-        <div className="mx-auto max-w-4xl flex flex-wrap items-center justify-between gap-3">
+      <footer className="px-6 sm:px-8 py-6 font-mono text-xs text-stone-400">
+        <div className="mx-auto max-w-4xl flex flex-col sm:flex-row sm:flex-wrap items-center sm:justify-between gap-3 text-center">
           <span>made quietly · {year}</span>
           <div className="space-x-3">
             <Link href="/about" className="hover:text-stone-700 transition">
