@@ -8,6 +8,7 @@ function ctx(overrides: Partial<SoundContextValue> = {}): SoundContextValue {
   return {
     prefs: DEFAULT_PREFS,
     amplitude: 0,
+    waveform: [],
     controlsOpen: true,
     isPlaying: true,
     toggleControls: () => {},

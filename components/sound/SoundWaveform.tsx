@@ -3,32 +3,38 @@ import { useSound } from './useSound'
 
 const W = 44
 const H = 18
-const POINTS = 17 // higher density so the wave reads smoothly
-
-// At rest, the line is a gentle sine wave (recognisable as "audio").
-// When playing, amplitude scales the wave height beyond rest.
+const REST_POINTS = 17
 const REST_AMP = 0.18
-const CYCLES = 1.5 // number of full sine cycles drawn across the width
+const REST_CYCLES = 1.5
 
-export function SoundWaveform() {
-  const { amplitude, isPlaying, toggleControls } = useSound()
-
+function pathFor(samples: number[]): string {
   const cy = H / 2
-  const maxAvailable = H / 2 - 1.5
-  // Combine rest amplitude with live amplitude so the waveform "breathes" alive
-  // smoothly out of the resting shape rather than snapping from flat to moving.
-  const ampNorm = Math.min(1, amplitude * 2.4)
-  const drawnAmp = isPlaying
-    ? Math.max(REST_AMP, ampNorm) * maxAvailable
-    : REST_AMP * maxAvailable
-
+  const max = H / 2 - 1.5
+  const n = samples.length
   const pts: string[] = []
-  for (let i = 0; i < POINTS; i++) {
-    const t = i / (POINTS - 1)
-    const x = t * W
-    const y = cy + Math.sin(t * Math.PI * 2 * CYCLES) * drawnAmp
+  for (let i = 0; i < n; i++) {
+    const x = (i / (n - 1)) * W
+    const y = cy + samples[i] * max
     pts.push(`${x.toFixed(2)},${y.toFixed(2)}`)
   }
+  return pts.join(' ')
+}
+
+function restSamples(): number[] {
+  const out: number[] = new Array(REST_POINTS)
+  for (let i = 0; i < REST_POINTS; i++) {
+    const t = i / (REST_POINTS - 1)
+    out[i] = Math.sin(t * Math.PI * 2 * REST_CYCLES) * REST_AMP
+  }
+  return out
+}
+
+const REST = restSamples()
+
+export function SoundWaveform() {
+  const { waveform, isPlaying, toggleControls } = useSound()
+
+  const samples = isPlaying && waveform.length > 0 ? waveform : REST
 
   return (
     <button
@@ -49,7 +55,7 @@ export function SoundWaveform() {
           strokeWidth="1.25"
           strokeLinecap="round"
           strokeLinejoin="round"
-          points={pts.join(' ')}
+          points={pathFor(samples)}
         />
       </svg>
     </button>

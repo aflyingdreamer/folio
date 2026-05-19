@@ -20,6 +20,7 @@ const SMOOTH_ALPHA  = 0.15
 export function SoundProvider({ children }: { children: React.ReactNode }) {
   const [prefs, setPrefs] = useState<SoundPrefs>(DEFAULT_PREFS)
   const [amplitude, setAmplitude] = useState(0)
+  const [waveform, setWaveform] = useState<number[]>([])
   const [controlsOpen, setControlsOpen] = useState(false)
   const [isPlaying, setIsPlaying] = useState(false)
 
@@ -91,10 +92,15 @@ export function SoundProvider({ children }: { children: React.ReactNode }) {
     }
   }, [prefs.track, prefs.volume])
 
-  // Amplitude rAF loop.
+  // Amplitude + waveform rAF loop. Throttles waveform updates to ~20fps
+  // (every ~3rd frame) since 17-sample arrays would otherwise re-render
+  // the SVG 60x/sec for no visual benefit.
   useEffect(() => {
     if (typeof window === 'undefined') return
     const buf = new Uint8Array(1024)
+    const WAVE_POINTS = 17
+    const WAVE_GAIN = 4 // amplify time-domain samples so quiet audio still moves the line
+    let frame = 0
     function tick() {
       const g = graphRef.current
       if (g && document.visibilityState === 'visible' && isPlaying) {
@@ -103,7 +109,19 @@ export function SoundProvider({ children }: { children: React.ReactNode }) {
         const smoothed = smooth(next, ampPrevRef.current, SMOOTH_ALPHA)
         ampPrevRef.current = smoothed
         setAmplitude(smoothed)
+
+        if (frame % 3 === 0) {
+          const samples: number[] = new Array(WAVE_POINTS)
+          const step = buf.length / WAVE_POINTS
+          for (let i = 0; i < WAVE_POINTS; i++) {
+            const idx = Math.floor(i * step)
+            const v = (buf[idx] - 128) / 128 // -> [-1, 1]
+            samples[i] = Math.max(-1, Math.min(1, v * WAVE_GAIN))
+          }
+          setWaveform(samples)
+        }
       }
+      frame++
       rafRef.current = requestAnimationFrame(tick)
     }
     rafRef.current = requestAnimationFrame(tick)
@@ -176,9 +194,9 @@ export function SoundProvider({ children }: { children: React.ReactNode }) {
   }, [])
 
   const value: SoundContextValue = useMemo(() => ({
-    prefs, amplitude, controlsOpen, isPlaying,
+    prefs, amplitude, waveform, controlsOpen, isPlaying,
     toggleControls, setEnabled, setTrack, setVolume, toggleLoopMode, togglePlay,
-  }), [prefs, amplitude, controlsOpen, isPlaying, toggleControls, setEnabled, setTrack, setVolume, toggleLoopMode, togglePlay])
+  }), [prefs, amplitude, waveform, controlsOpen, isPlaying, toggleControls, setEnabled, setTrack, setVolume, toggleLoopMode, togglePlay])
 
   return (
     <SoundContext.Provider value={value}>

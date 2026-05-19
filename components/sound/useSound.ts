@@ -6,6 +6,9 @@ import type { TrackSlug } from './tracks'
 export type SoundContextValue = {
   prefs: SoundPrefs
   amplitude: number
+  // Live time-domain samples, normalised to [-1, 1]. Length is implementation-defined
+  // (currently ~17 downsampled samples). Empty array when not playing.
+  waveform: number[]
   controlsOpen: boolean
   toggleControls: () => void
   setEnabled: (v: boolean) => void
