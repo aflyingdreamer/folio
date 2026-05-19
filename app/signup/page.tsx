@@ -22,16 +22,16 @@ export default function SignupPage() {
 
   if (confirmNotice) {
     return (
-      <main className="mx-auto max-w-md px-6 mt-32 font-mono text-sm text-stone-700">
-        <h1 className="font-serif text-5xl text-stone-900 mb-6">Folio</h1>
+      <main className="mx-auto max-w-md px-6 mt-20 sm:mt-32 pb-20 font-mono text-sm text-stone-700">
+        <h1 className="font-serif text-4xl sm:text-5xl text-stone-900 mb-6">Folio</h1>
         <p className="font-serif text-xl text-stone-900 leading-relaxed">{confirmNotice}</p>
       </main>
     )
   }
 
   return (
-    <main className="mx-auto max-w-md px-6 mt-32 font-mono text-sm text-stone-700">
-      <h1 className="font-serif text-5xl text-stone-900 mb-3">Folio</h1>
+    <main className="mx-auto max-w-md px-6 mt-20 sm:mt-32 pb-20 font-mono text-sm text-stone-700">
+      <h1 className="font-serif text-4xl sm:text-5xl text-stone-900 mb-3">Folio</h1>
       <p className="font-serif text-lg text-stone-500 italic mb-12">
         Three pages. Every morning. For yourself.
       </p>
@@ -67,7 +67,7 @@ export default function SignupPage() {
         </Link>
       </p>
 
-      <footer className="fixed bottom-8 left-0 right-0 text-center text-xs text-stone-400">
+      <footer className="mt-20 text-center text-xs text-stone-400 sm:fixed sm:bottom-8 sm:left-0 sm:right-0 sm:mt-0">
         a tribute to morning pages by Julia Cameron
         <br />
         and 750words.com by Buster Benson
