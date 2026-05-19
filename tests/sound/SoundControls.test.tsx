@@ -30,15 +30,13 @@ describe('SoundControls', () => {
     expect(container.textContent).toBe('')
   })
 
-  it('lists all five track labels when open', () => {
+  it('lists all track labels when open', () => {
     render(
       <SoundContext.Provider value={ctx()}>
         <SoundControls />
       </SoundContext.Provider>
     )
     expect(screen.getByText('soft rain')).toBeTruthy()
-    expect(screen.getByText('room tone')).toBeTruthy()
-    expect(screen.getByText('distant café')).toBeTruthy()
     expect(screen.getByText('fireplace')).toBeTruthy()
     expect(screen.getByText('forest at dawn')).toBeTruthy()
   })

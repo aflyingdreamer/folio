@@ -1,7 +1,5 @@
 export type TrackSlug =
   | 'soft_rain'
-  | 'room_tone'
-  | 'distant_cafe'
   | 'fireplace'
   | 'forest_dawn'
 
@@ -13,11 +11,9 @@ export type Track = {
 }
 
 export const TRACKS: readonly Track[] = [
-  { slug: 'soft_rain',    label: 'soft rain',      src: '/sounds/soft-rain.mp3',    credit: { artist: 'Ylmir', source: 'https://opengameart.org/content/rain-loopable', licence: 'CC0' } },
-  { slug: 'room_tone',    label: 'room tone',      src: '/sounds/room-tone.mp3',    credit: { artist: 'TBD', source: 'TBD', licence: 'CC0' } },
-  { slug: 'distant_cafe', label: 'distant café',   src: '/sounds/distant-cafe.mp3', credit: { artist: 'TBD', source: 'TBD', licence: 'CC0' } },
-  { slug: 'fireplace',    label: 'fireplace',      src: '/sounds/fireplace.ogg',    credit: { artist: 'AntumDeluge', source: 'https://opengameart.org/content/fire-crackling', licence: 'CC0' } },
-  { slug: 'forest_dawn',  label: 'forest at dawn', src: '/sounds/forest-dawn.mp3',  credit: { artist: 'TinyWorlds', source: 'https://opengameart.org/content/forest-ambience', licence: 'CC0' } },
+  { slug: 'soft_rain',    label: 'soft rain',      src: '/sounds/soft-rain.mp3',    credit: { artist: 'Ylmir',       source: 'https://opengameart.org/content/rain-loopable',   licence: 'CC0' } },
+  { slug: 'fireplace',    label: 'fireplace',      src: '/sounds/fireplace.ogg',    credit: { artist: 'AntumDeluge', source: 'https://opengameart.org/content/fire-crackling',  licence: 'CC0' } },
+  { slug: 'forest_dawn',  label: 'forest at dawn', src: '/sounds/forest-dawn.mp3',  credit: { artist: 'TinyWorlds',  source: 'https://opengameart.org/content/forest-ambience', licence: 'CC0' } },
 ] as const
 
 export const DEFAULT_TRACK: TrackSlug = 'soft_rain'
