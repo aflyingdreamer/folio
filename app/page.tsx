@@ -27,7 +27,7 @@ export default async function Home() {
         <div className="mx-auto max-w-2xl font-serif text-stone-600 leading-relaxed space-y-6">
           <p className="text-balance">
             Hi, I&apos;m Brian — just a regular IT guy trying to keep
-            his head above water in the AI era. Most of my days are
+            my head above water in the AI era. Most of my days are
             loud: notifications, models, dashboards, more tabs than
             I&apos;d like to admit. I made Folio for the opposite
             reason — a small, quiet room on the internet where the
