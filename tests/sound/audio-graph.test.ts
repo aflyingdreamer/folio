@@ -47,7 +47,6 @@ function makeMockAudio(src = '') {
 }
 
 beforeEach(() => {
-  // @ts-expect-error stub
   globalThis.AudioContext = vi.fn(makeMockAudioContext) as any
 })
 
