@@ -27,6 +27,34 @@ body {
   .folio-caret { caret-color: #78716c; }
   .folio-active-paragraph { color: #1c1917; }
   .folio-dim-paragraph { color: #d6d3d1; transition: color 200ms ease; }
+  .animate-folio-fade-in {
+    animation: folio-fade 900ms ease-out both;
+  }
+  .animate-folio-fade-in-late {
+    animation: folio-fade 1200ms ease-out 700ms both;
+  }
+  @keyframes folio-fade {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  /* sound volume slider — thin line + single dot */
+  .folio-volume { height: 14px; }
+  .folio-volume::-webkit-slider-runnable-track {
+    height: 1px; background: rgb(168 162 158);
+  }
+  .folio-volume::-moz-range-track {
+    height: 1px; background: rgb(168 162 158);
+  }
+  .folio-volume::-webkit-slider-thumb {
+    -webkit-appearance: none; appearance: none;
+    width: 8px; height: 8px; border-radius: 9999px;
+    background: rgb(68 64 60);
+    margin-top: -3.5px;
+  }
+  .folio-volume::-moz-range-thumb {
+    width: 8px; height: 8px; border-radius: 9999px;
+    background: rgb(68 64 60); border: 0;
+  }
   .folio-paper-grain {
     background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.42  0 0 0 0 0.40  0 0 0 0 0.37  0 0 0 0.05 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
     background-repeat: repeat;

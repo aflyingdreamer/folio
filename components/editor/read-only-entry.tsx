@@ -35,9 +35,9 @@ export function ReadOnlyEntry({
   const count = countWords(content)
 
   return (
-    <div className="mx-auto w-full max-w-3xl px-6 py-24 relative">
+    <div className="mx-auto w-full max-w-3xl px-6 pt-28 pb-20 sm:py-24 relative">
       <DateBanner text={dateLabel} count={count} goal={GOAL} />
-      <div className="font-serif text-lg leading-loose whitespace-pre-wrap text-stone-900">
+      <div className="font-serif text-base sm:text-lg leading-loose whitespace-pre-wrap text-stone-900">
         {content}
       </div>
     </div>

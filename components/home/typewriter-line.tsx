@@ -50,7 +50,7 @@ export function TypewriterLine({ ctaHref }: { ctaHref: string }) {
           tabIndex={done ? 0 : -1}
           className="text-stone-700 hover:text-stone-900 underline underline-offset-4 decoration-stone-300 hover:decoration-stone-900 transition"
         >
-          begin →
+          start writing →
         </Link>
       </div>
     </div>
