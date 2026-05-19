@@ -17,8 +17,12 @@ export function createGraph(opts: {
   audioA: HTMLAudioElement
   audioB: HTMLAudioElement
 }): AudioGraph {
-  const Ctx: typeof AudioContext =
-    (globalThis as any).AudioContext ?? (globalThis as any).webkitAudioContext
+  const g = globalThis as unknown as {
+    AudioContext?: typeof AudioContext
+    webkitAudioContext?: typeof AudioContext
+  }
+  const Ctx = g.AudioContext ?? g.webkitAudioContext
+  if (!Ctx) throw new Error('Web Audio API unavailable')
   const ctx = new Ctx()
 
   const { audioA, audioB } = opts

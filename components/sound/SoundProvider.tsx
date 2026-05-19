@@ -45,7 +45,8 @@ export function SoundProvider({ children }: { children: React.ReactNode }) {
     const audioA = audioARef.current
     const audioB = audioBRef.current
     if (!audioA || !audioB) return null
-    if (typeof (window as any).AudioContext === 'undefined' && typeof (window as any).webkitAudioContext === 'undefined') return null
+    const w = window as unknown as { AudioContext?: unknown; webkitAudioContext?: unknown }
+    if (typeof w.AudioContext === 'undefined' && typeof w.webkitAudioContext === 'undefined') return null
     try {
       const g = createGraph({ audioA, audioB })
       audioA.src = getTrack(prefs.track).src

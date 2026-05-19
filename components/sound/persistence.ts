@@ -66,8 +66,17 @@ export function writeLocalPrefs(p: SoundPrefs): void {
   localStorage.setItem(KEYS.loopMode, p.loopMode)
 }
 
+type SupabaseFromChain = {
+  update: (row: Record<string, unknown>) => { eq: (col: string, val: string) => Promise<unknown> }
+  select: (cols: string) => {
+    eq: (col: string, val: string) => {
+      maybeSingle: () => Promise<{ data: Record<string, unknown> | null; error: unknown }>
+    }
+  }
+}
+
 export async function persistRemote(
-  supabase: { from: (t: string) => any },
+  supabase: { from: (t: string) => SupabaseFromChain },
   userId: string,
   p: SoundPrefs,
 ): Promise<void> {
@@ -80,7 +89,7 @@ export async function persistRemote(
 }
 
 export async function fetchRemote(
-  supabase: { from: (t: string) => any },
+  supabase: { from: (t: string) => SupabaseFromChain },
   userId: string,
 ): Promise<SoundPrefs | null> {
   const { data, error } = await supabase
@@ -89,10 +98,12 @@ export async function fetchRemote(
     .eq('user_id', userId)
     .maybeSingle()
   if (error || !data) return null
+  const trackRaw = typeof data.sound_track === 'string' ? data.sound_track : null
+  const loopRaw  = typeof data.sound_loop_mode === 'string' ? data.sound_loop_mode : null
   return {
-    enabled:  data.sound_enabled,
-    track:    isTrack(data.sound_track) ? data.sound_track : DEFAULT_PREFS.track,
+    enabled:  typeof data.sound_enabled === 'boolean' ? data.sound_enabled : null,
+    track:    isTrack(trackRaw) ? trackRaw : DEFAULT_PREFS.track,
     volume:   typeof data.sound_volume === 'number' ? data.sound_volume : DEFAULT_PREFS.volume,
-    loopMode: isLoopMode(data.sound_loop_mode) ? data.sound_loop_mode : DEFAULT_PREFS.loopMode,
+    loopMode: isLoopMode(loopRaw) ? loopRaw : DEFAULT_PREFS.loopMode,
   }
 }
