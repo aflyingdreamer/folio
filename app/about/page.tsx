@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Script from 'next/script'
 
 export const metadata = { title: 'About · Folio' }
 
@@ -44,6 +45,19 @@ export default function About() {
           you&apos;re in the right place. The ritual is free, forever.
         </p>
       </div>
+
+      <Script
+        src="https://storage.ko-fi.com/cdn/scripts/overlay-widget.js"
+        strategy="afterInteractive"
+      />
+      <Script id="kofi-widget" strategy="afterInteractive">
+        {`kofiWidgetOverlay.draw('brianfolio', {
+          'type': 'floating-chat',
+          'floating-chat.donateButton.text': 'leave a tip',
+          'floating-chat.donateButton.background-color': '#1c1917',
+          'floating-chat.donateButton.text-color': '#fafaf9'
+        });`}
+      </Script>
     </main>
   )
 }
