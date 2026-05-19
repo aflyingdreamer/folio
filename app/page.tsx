@@ -44,8 +44,8 @@ export default async function Home() {
             every day. It&apos;s still running.
           </p>
           <p className="text-balance">
-            Folio is a small tribute to both. The ritual is free,
-            forever.
+            Folio is a quiet tribute to both. No streaks, no likes,
+            no algorithm — and the ritual is free, forever.
           </p>
         </div>
       </section>

@@ -28,7 +28,9 @@ export function WelcomeScene({
     }
   }, [router])
 
-  const greeting = first ? `Welcome, ${name}.` : `Welcome back, ${name}.`
+  const greeting = first
+    ? `Welcome, ${name}. The page is yours.`
+    : `Welcome back, ${name}.`
 
   return (
     <main

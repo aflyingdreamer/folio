@@ -42,7 +42,7 @@ export default function SignupPage() {
         <Field
           name="password"
           type="password"
-          placeholder="a password (at least 6 characters)"
+          placeholder="a password (6+ characters, your secret)"
           autoComplete="new-password"
         />
 

@@ -37,7 +37,7 @@ export default function ForgotPage() {
         </div>
       ) : (
         <form onSubmit={onSubmit} className="space-y-5">
-          <p className="font-serif text-lg text-stone-700 mb-6">reset your password.</p>
+          <p className="font-serif text-lg text-stone-700 mb-6">happens to all of us. let&apos;s reset.</p>
           <input
             name="email"
             type="email"
