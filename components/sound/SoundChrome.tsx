@@ -1,6 +1,5 @@
 'use client'
 import { usePathname } from 'next/navigation'
-import { SoundWaveform } from './SoundWaveform'
 import { SoundControls } from './SoundControls'
 import { FirstVisitAsk } from './FirstVisitAsk'
 
@@ -13,12 +12,6 @@ export function SoundChrome() {
 
   return (
     <>
-      <div
-        data-folio-sound-waveform-slot
-        className="fixed top-6 right-[148px] z-40 text-stone-400 hover:text-stone-700 transition-colors"
-      >
-        <SoundWaveform />
-      </div>
       <FirstVisitAsk />
       <SoundControls />
     </>

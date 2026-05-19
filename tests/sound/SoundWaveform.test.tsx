@@ -37,7 +37,7 @@ describe('SoundWaveform', () => {
       </SoundContext.Provider>
     )
     const btn = container.querySelector('button')!
-    expect(btn.className).toMatch(/opacity-40/)
+    expect(btn.className).toMatch(/opacity-60/)
   })
 
   it('renders at full opacity when playing', () => {
