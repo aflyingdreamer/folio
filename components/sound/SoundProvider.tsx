@@ -1,9 +1,10 @@
 'use client'
 import { useEffect, useMemo, useRef, useState, useCallback } from 'react'
 import { SoundContext, type SoundContextValue } from './useSound'
-import { DEFAULT_PREFS, readLocalPrefs, writeLocalPrefs, type SoundPrefs } from './persistence'
+import { DEFAULT_PREFS, readLocalPrefs, writeLocalPrefs, fetchRemote, persistRemote, type SoundPrefs } from './persistence'
 import { getTrack, TRACKS, type TrackSlug } from './tracks'
 import { rms, smooth } from './amplitude'
+import { createClient } from '@/lib/supabase/client'
 import {
   createGraph,
   crossfadeTo,
@@ -33,9 +34,40 @@ export function SoundProvider({ children }: { children: React.ReactNode }) {
     setPrefs(readLocalPrefs())
   }, [])
 
-  // Persist prefs on every change.
+  // Hydrate from server for signed-in users; server wins.
+  useEffect(() => {
+    let cancelled = false
+    ;(async () => {
+      try {
+        const supabase = createClient()
+        const { data: { user } } = await supabase.auth.getUser()
+        if (!user) return
+        const remote = await fetchRemote(
+          supabase as unknown as Parameters<typeof fetchRemote>[0],
+          user.id,
+        )
+        if (cancelled || !remote) return
+        setPrefs(remote)
+      } catch { /* ignore */ }
+    })()
+    return () => { cancelled = true }
+  }, [])
+
+  // Persist prefs on every change — localStorage always, supabase if signed-in.
   useEffect(() => {
     writeLocalPrefs(prefs)
+    ;(async () => {
+      try {
+        const supabase = createClient()
+        const { data: { user } } = await supabase.auth.getUser()
+        if (!user) return
+        await persistRemote(
+          supabase as unknown as Parameters<typeof persistRemote>[0],
+          user.id,
+          prefs,
+        )
+      } catch { /* swallow; localStorage holds the truth */ }
+    })()
   }, [prefs])
 
   // Lazily initialise the audio graph after the first user gesture.
