@@ -35,11 +35,20 @@ export function WritingSurface({ entryDate, dateLabel, initialContent, initialWo
   }, [])
 
   // Auto-grow the textarea so the page (not the textarea) handles scroll.
+  // Also keep the caret in a comfortable reading band so the user never has
+  // to scroll by hand while typing (especially on mobile, where the on-screen
+  // keyboard otherwise shoves the caret behind itself).
   useEffect(() => {
     const ta = taRef.current
     if (!ta) return
     ta.style.height = 'auto'
     ta.style.height = `${ta.scrollHeight}px`
+    const rect = ta.getBoundingClientRect()
+    const vv = window.visualViewport
+    const viewportBottom = vv ? vv.height : window.innerHeight
+    const comfort = viewportBottom * 0.65
+    const overflow = rect.bottom - comfort
+    if (overflow > 0) window.scrollBy({ top: overflow })
   }, [text])
 
   function handleChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
