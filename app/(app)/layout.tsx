@@ -3,7 +3,6 @@ import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import { TzCapture } from '@/lib/tz/capture'
 import { ArchiveDrawer } from '@/components/archive/archive-drawer'
-import { SoundWaveform } from '@/components/sound/SoundWaveform'
 import { signOut } from '@/lib/auth/sign-out'
 import { MobileMenu } from '@/components/nav/mobile-menu'
 
@@ -16,14 +15,8 @@ export default async function AppLayout({ children }: { children: React.ReactNod
   return (
     <>
       <TzCapture />
-      <div className="sm:hidden fixed top-6 left-1/2 -translate-x-1/2 z-40 text-stone-400">
-        <SoundWaveform />
-      </div>
       <nav data-folio-nav className="fixed top-6 right-6 font-mono text-xs text-stone-400 flex items-center gap-5 z-40">
-        <div className="hidden sm:flex items-center gap-5">
-          <SoundWaveform />
-          <Link href="/today" className="hover:text-stone-700">today</Link>
-        </div>
+        <Link href="/today" className="hidden sm:inline hover:text-stone-700">today</Link>
         <ArchiveDrawer />
         <Link href="/about" className="hidden sm:inline hover:text-stone-700">about</Link>
         <form action={signOut} className="hidden sm:block">

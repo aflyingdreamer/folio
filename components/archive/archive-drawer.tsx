@@ -72,7 +72,7 @@ export function ArchiveDrawer() {
           >
             close
           </button>
-          <div className="flex items-baseline justify-between mb-12">
+          <div className="flex items-baseline justify-between mb-3">
             <h1 className="font-mono text-sm text-stone-500">{year ?? ''}</h1>
             <a
               href="/today"
@@ -81,6 +81,9 @@ export function ArchiveDrawer() {
               today
             </a>
           </div>
+          <p className="font-mono text-xs text-stone-400 leading-relaxed mb-12">
+            a long day, just for you. it seals at midnight.
+          </p>
           {loading && <p className="font-mono text-xs text-stone-400">loading…</p>}
           {year !== null && (
             <CalendarMonths
