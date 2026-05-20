@@ -16,7 +16,7 @@ export function MobileMenu() {
   }, [open])
 
   return (
-    <div className="sm:hidden">
+    <div className="relative">
       <button
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
@@ -33,18 +33,20 @@ export function MobileMenu() {
             aria-hidden
           />
           <div className="absolute top-8 right-0 z-40 bg-stone-50 border border-stone-200 rounded-sm py-3 px-5 flex flex-col gap-3 font-mono text-xs text-stone-500 min-w-[120px]">
-            <Link href="/today" onClick={() => setOpen(false)} className="hover:text-stone-900">today</Link>
+            <Link href="/today" onClick={() => setOpen(false)} className="sm:hidden hover:text-stone-900">today</Link>
             <button
               type="button"
               onClick={() => {
                 setOpen(false)
                 window.dispatchEvent(new Event('folio:open-archive'))
               }}
-              className="hover:text-stone-900 text-left"
+              className="sm:hidden hover:text-stone-900 text-left"
             >
               archive
             </button>
             <Link href="/about" onClick={() => setOpen(false)} className="hover:text-stone-900">about</Link>
+            <Link href="/legal/privacy" onClick={() => setOpen(false)} className="hover:text-stone-900">privacy</Link>
+            <Link href="/legal/terms" onClick={() => setOpen(false)} className="hover:text-stone-900">terms</Link>
             <form action={signOut}>
               <button type="submit" className="hover:text-stone-900 text-left w-full">sign out</button>
             </form>

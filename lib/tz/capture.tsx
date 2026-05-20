@@ -14,7 +14,13 @@ export function TzCapture() {
         localStorage.setItem('folio-tz', tz)
         router.refresh()
       })
-      .catch(() => {})
+      .catch((err) => {
+        if (process.env.NODE_ENV !== 'production') {
+          // Surface in dev so we notice silent regressions; in prod we
+          // intentionally swallow — TzCapture retries on every mount.
+          console.warn('[tz] upsert failed, will retry next mount', err)
+        }
+      })
   }, [router])
   return null
 }
