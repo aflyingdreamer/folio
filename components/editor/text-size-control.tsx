@@ -41,7 +41,7 @@ export function TextSizeMenuControl() {
     window.dispatchEvent(new CustomEvent(EVENT, { detail: clamped }))
   }
   return (
-    <div className="flex items-center justify-between gap-3">
+    <div className="flex items-center justify-between gap-4 whitespace-nowrap">
       <span>text size</span>
       <span className="flex items-center gap-3">
         <button

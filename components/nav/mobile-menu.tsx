@@ -33,7 +33,7 @@ export function MobileMenu() {
             onClick={() => setOpen(false)}
             aria-hidden
           />
-          <div className="absolute top-8 right-0 z-40 bg-stone-50 border border-stone-200 rounded-sm py-3 px-5 flex flex-col gap-3 font-mono text-xs text-stone-500 min-w-[120px]">
+          <div className="absolute top-8 right-0 z-40 bg-stone-50 border border-stone-200 rounded-sm py-3 px-5 flex flex-col gap-3 font-mono text-xs text-stone-500 min-w-[160px]">
             <Link href="/today" onClick={() => setOpen(false)} className="sm:hidden hover:text-stone-900">today</Link>
             <button
               type="button"
