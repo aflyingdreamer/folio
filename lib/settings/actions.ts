@@ -1,7 +1,9 @@
 'use server'
 import { createClient } from '@/lib/supabase/server'
+import { createAdminClient } from '@/lib/supabase/admin'
 import { revalidatePath } from 'next/cache'
 import { cookies } from 'next/headers'
+import { redirect } from 'next/navigation'
 import { THEME_COOKIE, isThemeChoice, type ThemeChoice } from './theme'
 
 export async function updateDisplayName(formData: FormData) {
@@ -56,6 +58,34 @@ export async function saveTheme(choice: ThemeChoice) {
 
   revalidatePath('/', 'layout')
   return { error: null, ok: true }
+}
+
+export async function deleteAccount(formData: FormData) {
+  const confirm = String(formData.get('confirm') ?? '').trim()
+  if (confirm !== 'delete') return { error: 'type "delete" to confirm.' }
+
+  const supabase = createClient()
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
+  if (!user) return { error: 'please sign in again.' }
+
+  const admin = createAdminClient()
+  if (!admin) {
+    return { error: 'account deletion is temporarily unavailable. please email support.' }
+  }
+
+  // Erase user data first, then the auth row. Service-role bypasses RLS,
+  // which is required because entries are immutable to the user themselves.
+  const del = await admin.from('entries').delete().eq('user_id', user.id)
+  if (del.error) return { error: del.error.message.toLowerCase() }
+  await admin.from('user_meta').delete().eq('user_id', user.id)
+
+  const { error: authErr } = await admin.auth.admin.deleteUser(user.id)
+  if (authErr) return { error: authErr.message.toLowerCase() }
+
+  await supabase.auth.signOut()
+  redirect('/?deleted=1')
 }
 
 export async function resendEmailConfirmation() {
