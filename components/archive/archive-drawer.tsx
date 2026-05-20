@@ -8,15 +8,21 @@ export function ArchiveDrawer() {
   const [year, setYear] = useState<number | null>(null)
   const [dates, setDates] = useState<Set<string>>(new Set())
   const [loading, setLoading] = useState(false)
+  const [loadError, setLoadError] = useState(false)
   const scrollRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
     if (!open || year !== null) return
     setLoading(true)
+    setLoadError(false)
     getArchiveDates()
       .then(({ year, dates }) => {
         setYear(year)
         setDates(new Set(dates))
+      })
+      .catch((err) => {
+        setLoadError(true)
+        if (process.env.NODE_ENV !== 'production') console.warn('[archive] load failed', err)
       })
       .finally(() => setLoading(false))
   }, [open, year])
@@ -107,6 +113,9 @@ export function ArchiveDrawer() {
           </header>
           <div className="px-6 pt-6 pb-16">
             {loading && <p className="font-mono text-xs text-stone-400">loading…</p>}
+            {loadError && (
+              <p className="font-mono text-xs text-rose-500">couldn’t load — try again in a moment.</p>
+            )}
             {year !== null && (
               <CalendarMonths
                 year={year}

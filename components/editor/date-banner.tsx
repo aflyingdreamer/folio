@@ -3,11 +3,13 @@ export function DateBanner({
   count,
   goal,
   saving,
+  error,
 }: {
   text: string
   count: number
   goal: number
   saving?: boolean
+  error?: string | null
 }) {
   const done = count >= goal
   return (
@@ -17,7 +19,11 @@ export function DateBanner({
         <span className={done ? 'text-stone-900' : 'text-stone-400'}>
           {count} / {goal}
         </span>
-        {saving && <span className="text-stone-300">saving…</span>}
+        {error ? (
+          <span className="text-rose-500" role="status">couldn’t save — keep typing</span>
+        ) : saving ? (
+          <span className="text-stone-300">saving…</span>
+        ) : null}
       </p>
     </div>
   )

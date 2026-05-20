@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { countWords } from '@/lib/words/count'
 import { upsertEntry } from '@/lib/entries/actions'
 import { CompletionRule } from './completion-rule'
@@ -16,9 +16,12 @@ export function WritingSurface({ entryDate, dateLabel, initialContent, initialWo
   const [count, setCount] = useState(() => countWords(initialContent))
   const [caret, setCaret] = useState(0)
   const [saving, setSaving] = useState(false)
+  const [saveError, setSaveError] = useState<string | null>(null)
   const [focusOn, setFocusOn] = useState(false)
   const countRef = useRef(initialWordCount)
   const saveTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const lastSavedRef = useRef(initialContent)
+  const pendingRef = useRef<{ content: string; wordCount: number } | null>(null)
   const taRef = useRef<HTMLTextAreaElement | null>(null)
   const completed = count >= GOAL
 
@@ -35,9 +38,6 @@ export function WritingSurface({ entryDate, dateLabel, initialContent, initialWo
   }, [])
 
   // Auto-grow the textarea so the page (not the textarea) handles scroll.
-  // Also keep the caret in a comfortable reading band so the user never has
-  // to scroll by hand while typing (especially on mobile, where the on-screen
-  // keyboard otherwise shoves the caret behind itself).
   useEffect(() => {
     const ta = taRef.current
     if (!ta) return
@@ -51,6 +51,48 @@ export function WritingSurface({ entryDate, dateLabel, initialContent, initialWo
     if (overflow > 0) window.scrollBy({ top: overflow })
   }, [text])
 
+  async function flushSave() {
+    const pending = pendingRef.current
+    if (!pending) return
+    pendingRef.current = null
+    try {
+      await upsertEntry({ entryDate, content: pending.content, wordCount: pending.wordCount })
+      lastSavedRef.current = pending.content
+      setSaveError(null)
+    } catch (err) {
+      // Re-queue so the next change retries the save.
+      pendingRef.current = pending
+      setSaveError(err instanceof Error ? err.message : 'save failed')
+    } finally {
+      if (!pendingRef.current) setSaving(false)
+    }
+  }
+
+  // Warn before unload if we still have unsaved keystrokes.
+  useEffect(() => {
+    const onBeforeUnload = (e: BeforeUnloadEvent) => {
+      if (pendingRef.current || lastSavedRef.current !== text) {
+        e.preventDefault()
+        e.returnValue = ''
+      }
+    }
+    window.addEventListener('beforeunload', onBeforeUnload)
+    return () => window.removeEventListener('beforeunload', onBeforeUnload)
+  }, [text])
+
+  // On unmount, flush any pending save. Fire-and-forget; the server action
+  // will complete even though the component is gone.
+  useEffect(() => {
+    return () => {
+      if (saveTimer.current) {
+        clearTimeout(saveTimer.current)
+        saveTimer.current = null
+      }
+      if (pendingRef.current) void flushSave()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   function handleChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
     const next = e.target.value
     const nextCount = countWords(next)
@@ -61,33 +103,33 @@ export function WritingSurface({ entryDate, dateLabel, initialContent, initialWo
 
     if (FOCUS_FADE_AFTER_FIRST_KEYSTROKE && !focusOn) setFocusOn(true)
 
+    pendingRef.current = { content: next, wordCount: nextCount }
     if (saveTimer.current) clearTimeout(saveTimer.current)
     setSaving(true)
-    saveTimer.current = setTimeout(async () => {
-      try {
-        await upsertEntry({ entryDate, content: next, wordCount: nextCount })
-      } finally {
-        setSaving(false)
-      }
+    saveTimer.current = setTimeout(() => {
+      saveTimer.current = null
+      void flushSave()
     }, DEBOUNCE_MS)
   }
 
-  // Compute paragraph dimming.
-  const paragraphs = text.split(/\n\n/)
-  let runningOffset = 0
-  let activeIdx = 0
-  for (let i = 0; i < paragraphs.length; i++) {
-    const end = runningOffset + paragraphs[i].length + 2
-    if (caret >= runningOffset && caret <= end) {
-      activeIdx = i
-      break
+  const { paragraphs, activeIdx } = useMemo(() => {
+    const parts = text.split(/\n\n/)
+    let running = 0
+    let active = 0
+    for (let i = 0; i < parts.length; i++) {
+      const end = running + parts[i].length + 2
+      if (caret >= running && caret <= end) {
+        active = i
+        break
+      }
+      running = end
     }
-    runningOffset = end
-  }
+    return { paragraphs: parts, activeIdx: active }
+  }, [text, caret])
 
   return (
     <div className="mx-auto w-full max-w-3xl px-6 pt-28 pb-20 sm:py-24 relative">
-      <DateBanner text={dateLabel} count={count} goal={GOAL} saving={saving} />
+      <DateBanner text={dateLabel} count={count} goal={GOAL} saving={saving} error={saveError} />
       {focusOn && (
         <div
           aria-hidden
