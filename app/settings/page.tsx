@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import { cookies } from 'next/headers'
@@ -30,7 +31,16 @@ export default async function SettingsPage() {
     : (isThemeChoice(meta?.theme) ? (meta!.theme as ThemeChoice) : 'system')
 
   return (
-    <main className="mx-auto max-w-2xl px-6 pt-24 pb-32 space-y-20">
+    <main className="mx-auto max-w-2xl px-6 py-16 sm:py-24 font-serif text-stone-700 leading-relaxed">
+      <header className="mb-12 font-mono text-sm">
+        <Link href="/today" className="text-stone-500 hover:text-stone-900 transition">
+          ← folio
+        </Link>
+      </header>
+
+      <h1 className="font-serif text-2xl sm:text-3xl text-stone-900 mb-12">Settings</h1>
+
+      <div className="space-y-20">
       <Row label="appearance">
         <ThemeControl initial={initialTheme} />
       </Row>
@@ -46,6 +56,7 @@ export default async function SettingsPage() {
       <Row label="password">
         <PasswordForm />
       </Row>
+      </div>
     </main>
   )
 }
