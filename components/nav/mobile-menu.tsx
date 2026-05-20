@@ -44,6 +44,7 @@ export function MobileMenu() {
             >
               archive
             </button>
+            <Link href="/settings" onClick={() => setOpen(false)} className="hover:text-stone-900">settings</Link>
             <Link href="/about" onClick={() => setOpen(false)} className="hover:text-stone-900">about</Link>
             <Link href="/legal/privacy" onClick={() => setOpen(false)} className="hover:text-stone-900">privacy</Link>
             <Link href="/legal/terms" onClick={() => setOpen(false)} className="hover:text-stone-900">terms</Link>
