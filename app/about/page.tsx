@@ -46,7 +46,7 @@ export default function About() {
       </div>
 
       <p className="mt-12 text-stone-500 text-balance">
-        if folio is part of your mornings, you can{' '}
+        If Folio is part of your mornings, you can{' '}
         <a
           href="https://ko-fi.com/brianfolio"
           className="underline underline-offset-4 decoration-stone-300 hover:decoration-stone-900"
