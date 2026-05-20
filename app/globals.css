@@ -3,30 +3,61 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* tailwind stone palette, exposed as RGB channels so opacity modifiers work */
+  --stone-50:  250 250 249;
+  --stone-100: 245 245 244;
+  --stone-200: 231 229 228;
+  --stone-300: 214 211 209;
+  --stone-400: 168 162 158;
+  --stone-500: 120 113 108;
+  --stone-600: 87 83 78;
+  --stone-700: 68 64 60;
+  --stone-800: 41 37 36;
+  --stone-900: 28 25 23;
+  --stone-950: 12 10 9;
+
+  --background: rgb(var(--stone-50));
+  --foreground: rgb(var(--stone-900));
+  --folio-caret: rgb(var(--stone-500));
+  --folio-active: rgb(var(--stone-900));
+  --folio-dim: rgb(var(--stone-300));
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+[data-theme="dark"] {
+  /* warm near-black: mirror stone shades end-for-end. mid (500) stays mid. */
+  --stone-50:  12 10 9;
+  --stone-100: 28 25 23;
+  --stone-200: 41 37 36;
+  --stone-300: 68 64 60;
+  --stone-400: 87 83 78;
+  --stone-500: 120 113 108;
+  --stone-600: 168 162 158;
+  --stone-700: 214 211 209;
+  --stone-800: 231 229 228;
+  --stone-900: 245 245 244;
+  --stone-950: 250 250 249;
+
+  --background: rgb(var(--stone-50));
+  --foreground: rgb(var(--stone-900));
+  --folio-caret: rgb(var(--stone-500));
+  --folio-active: rgb(var(--stone-900));
+  --folio-dim: rgb(var(--stone-300));
+
+  color-scheme: dark;
 }
 
-body {
-  color: var(--foreground);
+html, body {
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  color: var(--foreground);
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
-  .folio-caret { caret-color: #78716c; }
-  .folio-active-paragraph { color: #1c1917; }
-  .folio-dim-paragraph { color: #d6d3d1; transition: color 200ms ease; }
+  .folio-caret { caret-color: var(--folio-caret); }
+  .folio-active-paragraph { color: var(--folio-active); }
+  .folio-dim-paragraph { color: var(--folio-dim); transition: color 200ms ease; }
   .animate-folio-fade-in {
     animation: folio-fade 900ms ease-out both;
   }

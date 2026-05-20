@@ -1,8 +1,11 @@
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
+import { cookies } from 'next/headers'
 import { DisplayNameForm } from './display-name-form'
 import { PasswordForm } from './password-form'
 import { EmailVerify } from './email-verify'
+import { ThemeControl } from './theme-control'
+import { THEME_COOKIE, isThemeChoice, type ThemeChoice } from '@/lib/settings/theme'
 
 export const dynamic = 'force-dynamic'
 
@@ -15,14 +18,23 @@ export default async function SettingsPage() {
 
   const { data: meta } = await supabase
     .from('user_meta')
-    .select('display_name')
+    .select('display_name, theme')
     .eq('user_id', user.id)
     .maybeSingle()
 
   const verified = Boolean(user.email_confirmed_at)
 
+  const cookieTheme = cookies().get(THEME_COOKIE)?.value
+  const initialTheme: ThemeChoice = isThemeChoice(cookieTheme)
+    ? cookieTheme
+    : (isThemeChoice(meta?.theme) ? (meta!.theme as ThemeChoice) : 'system')
+
   return (
     <main className="mx-auto max-w-2xl px-6 pt-24 pb-32 space-y-20">
+      <Row label="appearance">
+        <ThemeControl initial={initialTheme} />
+      </Row>
+
       <Row label="display name">
         <DisplayNameForm initial={meta?.display_name ?? ''} />
       </Row>

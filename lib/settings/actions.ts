@@ -1,6 +1,8 @@
 'use server'
 import { createClient } from '@/lib/supabase/server'
 import { revalidatePath } from 'next/cache'
+import { cookies } from 'next/headers'
+import { THEME_COOKIE, isThemeChoice, type ThemeChoice } from './theme'
 
 export async function updateDisplayName(formData: FormData) {
   const name = String(formData.get('name') ?? '').trim().slice(0, 60)
@@ -30,6 +32,29 @@ export async function changePassword(formData: FormData) {
   const supabase = createClient()
   const { error } = await supabase.auth.updateUser({ password })
   if (error) return { error: error.message.toLowerCase() }
+  return { error: null, ok: true }
+}
+
+export async function saveTheme(choice: ThemeChoice) {
+  if (!isThemeChoice(choice)) return { error: 'invalid theme.' }
+
+  cookies().set(THEME_COOKIE, choice, {
+    path: '/',
+    maxAge: 60 * 60 * 24 * 365,
+    sameSite: 'lax',
+  })
+
+  const supabase = createClient()
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
+  if (user) {
+    await supabase
+      .from('user_meta')
+      .upsert({ user_id: user.id, theme: choice }, { onConflict: 'user_id' })
+  }
+
+  revalidatePath('/', 'layout')
   return { error: null, ok: true }
 }
 
