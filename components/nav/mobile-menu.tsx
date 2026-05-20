@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { signOut } from '@/lib/auth/sign-out'
+import { TextSizeMenuControl } from '@/components/editor/text-size-control'
 
 export function MobileMenu() {
   const [open, setOpen] = useState(false)
@@ -44,6 +45,7 @@ export function MobileMenu() {
             >
               archive
             </button>
+            <TextSizeMenuControl />
             <Link href="/settings" onClick={() => setOpen(false)} className="hover:text-stone-900">settings</Link>
             <Link href="/about" onClick={() => setOpen(false)} className="hover:text-stone-900">about</Link>
             <Link href="/legal/privacy" onClick={() => setOpen(false)} className="hover:text-stone-900">privacy</Link>
