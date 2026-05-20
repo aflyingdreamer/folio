@@ -33,12 +33,14 @@ export function CalendarMonths({
                 const isToday = iso === todayIso
                 const ring = isToday ? 'ring-2 ring-stone-900 ring-offset-1' : ''
                 const href = isToday ? '/today' : `/archive/${iso}`
+                const todayAttr = isToday ? { 'data-folio-today': 'true' as const } : {}
                 return hit ? (
                   <Link
                     key={iso}
                     href={href}
                     className={`aspect-square bg-stone-900 hover:bg-stone-700 ${ring}`}
                     title={iso}
+                    {...todayAttr}
                   />
                 ) : isToday ? (
                   <Link
@@ -46,6 +48,7 @@ export function CalendarMonths({
                     href="/today"
                     className={`aspect-square border border-stone-200 hover:bg-stone-100 ${ring}`}
                     title={iso}
+                    {...todayAttr}
                   />
                 ) : (
                   <div
