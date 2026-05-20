@@ -1,6 +1,5 @@
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
-import Link from 'next/link'
 import { DisplayNameForm } from './display-name-form'
 import { PasswordForm } from './password-form'
 import { EmailVerify } from './email-verify'
@@ -24,19 +23,6 @@ export default async function SettingsPage() {
 
   return (
     <main className="mx-auto max-w-2xl px-6 pt-24 pb-32 space-y-20">
-      <section>
-        <p className="font-serif text-lg text-stone-700 leading-relaxed">
-          Folio is a tribute to Julia Cameron’s morning pages and Buster Benson’s
-          {' '}
-          <a href="https://750words.com" className="underline decoration-stone-300 underline-offset-4 hover:text-stone-900">750words.com</a>.
-          {' '}Write three pages. Close the tab. Come back tomorrow.
-        </p>
-        <p className="mt-4 font-mono text-xs text-stone-400">
-          v0.1 ·{' '}
-          <Link href="/about" className="hover:text-stone-700">about & credits</Link>
-        </p>
-      </section>
-
       <Row label="display name">
         <DisplayNameForm initial={meta?.display_name ?? ''} />
       </Row>

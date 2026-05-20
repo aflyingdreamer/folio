@@ -24,10 +24,10 @@ export function PasswordForm() {
   }
 
   const label =
-    status === 'saving' ? 'updating…' :
-    status === 'updated' ? 'updated' :
+    status === 'saving' ? 'saving…' :
+    status === 'updated' ? 'saved' :
     status === 'error' ? 'try again' :
-    'update'
+    'save'
 
   return (
     <form onSubmit={onSubmit} className="space-y-3">
