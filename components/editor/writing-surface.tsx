@@ -38,17 +38,21 @@ export function WritingSurface({ entryDate, dateLabel, initialContent, initialWo
   }, [])
 
   // Auto-grow the textarea so the page (not the textarea) handles scroll.
+  // Deferred to rAF so the keystroke commits its paint before we force layout.
   useEffect(() => {
     const ta = taRef.current
     if (!ta) return
-    ta.style.height = 'auto'
-    ta.style.height = `${ta.scrollHeight}px`
-    const rect = ta.getBoundingClientRect()
-    const vv = window.visualViewport
-    const viewportBottom = vv ? vv.height : window.innerHeight
-    const comfort = viewportBottom * 0.65
-    const overflow = rect.bottom - comfort
-    if (overflow > 0) window.scrollBy({ top: overflow })
+    const raf = requestAnimationFrame(() => {
+      ta.style.height = 'auto'
+      ta.style.height = `${ta.scrollHeight}px`
+      const rect = ta.getBoundingClientRect()
+      const vv = window.visualViewport
+      const viewportBottom = vv ? vv.height : window.innerHeight
+      const comfort = viewportBottom * 0.65
+      const overflow = rect.bottom - comfort
+      if (overflow > 0) window.scrollBy({ top: overflow })
+    })
+    return () => cancelAnimationFrame(raf)
   }, [text])
 
   async function flushSave() {
@@ -113,6 +117,7 @@ export function WritingSurface({ entryDate, dateLabel, initialContent, initialWo
   }
 
   const { paragraphs, activeIdx } = useMemo(() => {
+    if (!focusOn) return { paragraphs: [] as string[], activeIdx: 0 }
     const parts = text.split(/\n\n/)
     let running = 0
     let active = 0
@@ -125,7 +130,7 @@ export function WritingSurface({ entryDate, dateLabel, initialContent, initialWo
       running = end
     }
     return { paragraphs: parts, activeIdx: active }
-  }, [text, caret])
+  }, [text, caret, focusOn])
 
   return (
     <div className="mx-auto w-full max-w-3xl px-6 pt-28 pb-20 sm:py-24 relative">

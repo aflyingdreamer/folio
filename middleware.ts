@@ -1,4 +1,4 @@
 import { updateSession } from '@/lib/supabase/middleware'
 
 export const middleware = updateSession
-export const config = { matcher: ['/((?!_next/static|_next/image|favicon.ico).*)'] }
+export const config = { matcher: ['/today/:path*', '/archive/:path*', '/settings/:path*', '/auth/:path*'] }
