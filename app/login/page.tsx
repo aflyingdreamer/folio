@@ -41,7 +41,7 @@ function LoginInner() {
 
   return (
     <main className="mx-auto max-w-md px-6 mt-20 sm:mt-32 pb-20 font-mono text-sm text-stone-700">
-      <h1 className="font-serif text-4xl sm:text-5xl text-stone-900 mb-3">Folio</h1>
+      <h1 className="font-serif text-4xl sm:text-5xl text-stone-900 mb-3">Mornings</h1>
       <p className="font-serif text-lg text-stone-500 italic mb-12">
         Three pages. Every morning. For yourself.
       </p>

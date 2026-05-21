@@ -14,9 +14,9 @@ export default async function Home() {
   const year = new Date().getFullYear()
 
   return (
-    <main className="h-screen flex flex-col bg-stone-50 folio-paper-grain overflow-hidden">
+    <main className="h-screen flex flex-col bg-stone-50 mornings-paper-grain overflow-hidden">
       <header className="px-8 py-6 font-mono text-sm">
-        <span className="text-stone-700">folio</span>
+        <span className="text-stone-700">mornings</span>
       </header>
 
       <section className="flex-1 flex items-center justify-center px-6 -mt-12">

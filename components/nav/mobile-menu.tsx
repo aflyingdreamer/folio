@@ -39,7 +39,7 @@ export function MobileMenu() {
               type="button"
               onClick={() => {
                 setOpen(false)
-                window.dispatchEvent(new Event('folio:open-archive'))
+                window.dispatchEvent(new Event('mornings:open-archive'))
               }}
               className="sm:hidden hover:text-stone-900 text-left"
             >

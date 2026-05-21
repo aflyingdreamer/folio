@@ -10,7 +10,7 @@ const serif = Lora({ subsets: ['latin'], variable: '--font-serif' })
 const mono  = JetBrains_Mono({ subsets: ['latin'], variable: '--font-mono', weight: ['400', '500'] })
 
 export const metadata: Metadata = {
-  title: 'Folio',
+  title: 'Mornings',
   description: 'A daily writing space. A tribute to morning pages.',
 }
 

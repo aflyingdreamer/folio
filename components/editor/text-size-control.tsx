@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react'
 
 const KEY = 'folio.textSize'
-const EVENT = 'folio:text-size'
+const EVENT = 'mornings:text-size'
 export const TEXT_SIZE_STEPS = [
   'text-base sm:text-lg',
   'text-lg sm:text-xl',

@@ -1,6 +1,6 @@
-# Folio Design Language
+# Mornings Design Language
 
-The shared rules that keep Folio feeling like one thing. Read this before changing UI copy, components, or styles.
+The shared rules that keep Mornings feeling like one thing. Read this before changing UI copy, components, or styles.
 
 ## Mood
 
@@ -8,7 +8,7 @@ Calm. Underground-cult. Substack-tier typography. The ritual matters more than t
 
 ## Voice & copy
 
-Folio sounds like a thoughtful 28-year-old peer who happens to be quietly funny. The audience often skews older — copy should land warmly for everyone.
+Mornings sounds like a thoughtful 28-year-old peer who happens to be quietly funny. The audience often skews older — copy should land warmly for everyone.
 
 **Voice traits**
 
@@ -47,16 +47,16 @@ Stone palette only. No accents, no brand colors.
 | Role | Token |
 | --- | --- |
 | Background | `bg-stone-50` |
-| Subtle background detail | `folio-paper-grain` (SVG noise) |
+| Subtle background detail | `mornings-paper-grain` (SVG noise) |
 | Body text | `text-stone-700` |
 | Strong text / headings | `text-stone-900` |
 | Quiet text / placeholders | `text-stone-500` / `text-stone-400` |
 | Ghost / hint | `text-stone-300` |
-| Dim paragraph (editor) | `folio-dim-paragraph` |
-| Active paragraph (editor) | `folio-active-paragraph` |
+| Dim paragraph (editor) | `mornings-dim-paragraph` |
+| Active paragraph (editor) | `mornings-active-paragraph` |
 | Errors | `text-red-700` (used sparingly, only when literal errors)
 
-No dark mode for now. No gradients. No shadows beyond what `folio-paper-grain` provides.
+No dark mode for now. No gradients. No shadows beyond what `mornings-paper-grain` provides.
 
 ## Layout
 
@@ -79,9 +79,9 @@ No dark mode for now. No gradients. No shadows beyond what `folio-paper-grain` p
 - Buttons: bordered rectangles, mono lowercase label, hover swaps to dark fill
 - Inputs: bottom-border only, no surrounding box, focus deepens the border
 - Links: stone-500 default, stone-900 hover, underline offset 4, stone-300 decoration
-- Cards: avoid — Folio is mostly prose on bare cream
+- Cards: avoid — Mornings is mostly prose on bare cream
 
-## What Folio is not
+## What Mornings is not
 
 - Not a social product. No followers, comments, shares, likes.
 - Not a gamified habit tracker. No streaks, badges, XP, fire emojis.

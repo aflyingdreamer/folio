@@ -35,12 +35,12 @@ export function WelcomeScene({
   return (
     <main
       onClick={() => router.replace('/today')}
-      className="min-h-screen flex flex-col items-center justify-center px-6 bg-stone-50 folio-paper-grain cursor-pointer select-none"
+      className="min-h-screen flex flex-col items-center justify-center px-6 bg-stone-50 mornings-paper-grain cursor-pointer select-none"
     >
-      <p className="font-serif text-4xl sm:text-5xl text-stone-900 text-balance text-center animate-folio-fade-in">
+      <p className="font-serif text-4xl sm:text-5xl text-stone-900 text-balance text-center animate-mornings-fade-in">
         {greeting}
       </p>
-      <figure className="mt-10 sm:mt-16 max-w-md text-center animate-folio-fade-in-late">
+      <figure className="mt-10 sm:mt-16 max-w-md text-center animate-mornings-fade-in-late">
         <blockquote className="font-serif italic text-stone-500 text-base sm:text-lg leading-relaxed text-balance">
           &ldquo;{quote.text}&rdquo;
         </blockquote>
