@@ -33,7 +33,7 @@ export function CalendarMonths({
                 const isToday = iso === todayIso
                 const ring = isToday ? 'ring-2 ring-stone-900 ring-offset-1' : ''
                 const href = isToday ? '/today' : `/archive/${iso}`
-                const todayAttr = isToday ? { 'data-folio-today': 'true' as const } : {}
+                const todayAttr = isToday ? { 'data-mornings-today': 'true' as const } : {}
                 return hit ? (
                   <Link
                     key={iso}

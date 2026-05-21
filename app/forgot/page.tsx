@@ -20,7 +20,7 @@ export default function ForgotPage() {
 
   return (
     <main className="mx-auto max-w-md px-6 mt-20 sm:mt-32 pb-20 font-mono text-sm text-stone-700">
-      <h1 className="font-serif text-4xl sm:text-5xl text-stone-900 mb-12">Folio</h1>
+      <h1 className="font-serif text-4xl sm:text-5xl text-stone-900 mb-12">Mornings</h1>
 
       {sent ? (
         <div className="space-y-4">

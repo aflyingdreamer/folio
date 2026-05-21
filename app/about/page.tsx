@@ -1,13 +1,13 @@
 import Link from 'next/link'
 
-export const metadata = { title: 'About · Folio' }
+export const metadata = { title: 'About · Mornings' }
 
 export default function About() {
   return (
     <main className="mx-auto max-w-2xl px-6 py-16 sm:py-24 font-serif text-stone-700 leading-relaxed">
       <header className="mb-12 font-mono text-sm">
         <Link href="/" className="text-stone-500 hover:text-stone-900 transition">
-          ← folio
+          ← mornings
         </Link>
       </header>
 
@@ -18,7 +18,7 @@ export default function About() {
           Hi, I&apos;m Brian — just a regular IT guy trying to keep
           my head above water in the AI era. Most of my days are
           loud: notifications, models, dashboards, more tabs than
-          I&apos;d like to admit. I made Folio for the opposite
+          I&apos;d like to admit. I made Mornings for the opposite
           reason — a small, quiet room on the internet where the
           only thing asked of you is to show up and write.
         </p>
@@ -32,7 +32,7 @@ export default function About() {
           >
             750words.com
           </a>
-          , and it changed how my mornings felt. Folio is my
+          , and it changed how my mornings felt. This app is my
           tribute to that ritual — to Julia Cameron, who named it,
           and to Buster Benson, who first put it online.
         </p>
@@ -46,7 +46,7 @@ export default function About() {
       </div>
 
       <p className="mt-12 text-stone-500 text-balance">
-        If Folio is part of your mornings, you can{' '}
+        If this is part of your mornings, you can{' '}
         <a
           href="https://ko-fi.com/brianfolio"
           className="underline underline-offset-4 decoration-stone-300 hover:decoration-stone-900"

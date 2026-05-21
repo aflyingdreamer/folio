@@ -34,7 +34,7 @@ test.describe('public surface', () => {
     const errors = watchConsole(page)
     await page.goto('/')
     // Either the landing pitch or the redirect target should be visible.
-    await expect(page.locator('body')).toContainText(/folio/i)
+    await expect(page.locator('body')).toContainText(/mornings/i)
     expect(errors, errors.join('\n')).toHaveLength(0)
   })
 
@@ -58,7 +58,7 @@ test.describe('public surface', () => {
   test('about page renders', async ({ page }) => {
     const errors = watchConsole(page)
     await page.goto('/about')
-    await expect(page.locator('body')).toContainText(/folio/i)
+    await expect(page.locator('body')).toContainText(/mornings/i)
     expect(errors, errors.join('\n')).toHaveLength(0)
   })
 

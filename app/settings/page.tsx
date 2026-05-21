@@ -34,7 +34,7 @@ export default async function SettingsPage() {
     <main className="mx-auto max-w-2xl px-6 py-16 sm:py-24 font-serif text-stone-700 leading-relaxed">
       <header className="mb-12 font-mono text-sm">
         <Link href="/today" className="text-stone-500 hover:text-stone-900 transition">
-          ← folio
+          ← mornings
         </Link>
       </header>
 

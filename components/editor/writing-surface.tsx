@@ -143,7 +143,7 @@ export function WritingSurface({ entryDate, dateLabel, initialContent, initialWo
           className={`pointer-events-none absolute inset-0 px-6 pt-28 pb-20 sm:py-32 font-serif ${textSize.className} leading-loose whitespace-pre-wrap`}
         >
           {paragraphs.map((p, i) => (
-            <p key={i} className={i === activeIdx ? 'folio-active-paragraph' : 'folio-dim-paragraph'}>
+            <p key={i} className={i === activeIdx ? 'mornings-active-paragraph' : 'mornings-dim-paragraph'}>
               {p || '\u00A0'}
             </p>
           ))}
@@ -156,7 +156,7 @@ export function WritingSurface({ entryDate, dateLabel, initialContent, initialWo
         onChange={handleChange}
         onSelect={(e) => setCaret(e.currentTarget.selectionStart)}
         placeholder="begin anywhere. three pages, no rules."
-        className={`folio-caret w-full resize-none overflow-hidden bg-transparent focus:outline-none font-serif ${textSize.className} leading-loose relative ${focusOn ? 'text-transparent' : ''}`}
+        className={`mornings-caret w-full resize-none overflow-hidden bg-transparent focus:outline-none font-serif ${textSize.className} leading-loose relative ${focusOn ? 'text-transparent' : ''}`}
         spellCheck={false}
       />
       <CompletionRule show={completed} />

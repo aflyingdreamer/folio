@@ -14,12 +14,12 @@ export default async function AppLayout({ children }: { children: React.ReactNod
   return (
     <>
       <TzCapture />
-      <nav data-folio-nav className="fixed top-6 right-6 font-mono text-xs text-stone-400 flex items-center gap-5 z-40">
+      <nav data-mornings-nav className="fixed top-6 right-6 font-mono text-xs text-stone-400 flex items-center gap-5 z-40">
         <Link href="/today" className="hidden sm:inline hover:text-stone-700">today</Link>
         <ArchiveDrawer />
         <MobileMenu />
       </nav>
-      <div id="folio-main">{children}</div>
+      <div id="mornings-main">{children}</div>
     </>
   )
 }

@@ -1,13 +1,13 @@
 import Link from 'next/link'
 
-export const metadata = { title: 'Privacy · Folio' }
+export const metadata = { title: 'Privacy · Mornings' }
 
 export default function Privacy() {
   return (
     <main className="mx-auto max-w-2xl px-6 py-24 font-serif text-stone-700 leading-relaxed">
       <header className="mb-12 font-mono text-sm">
         <Link href="/" className="text-stone-500 hover:text-stone-900 transition">
-          ← folio
+          ← mornings
         </Link>
       </header>
       <h1 className="font-serif text-3xl text-stone-900 mb-8">Privacy</h1>

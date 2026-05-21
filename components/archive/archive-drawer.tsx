@@ -31,14 +31,14 @@ export function ArchiveDrawer() {
   useEffect(() => {
     if (!open || year === null) return
     const t = requestAnimationFrame(() => {
-      const todayEl = scrollRef.current?.querySelector<HTMLElement>('[data-folio-today]')
+      const todayEl = scrollRef.current?.querySelector<HTMLElement>('[data-mornings-today]')
       todayEl?.scrollIntoView({ block: 'center', behavior: 'instant' as ScrollBehavior })
     })
     return () => cancelAnimationFrame(t)
   }, [open, year])
 
   useEffect(() => {
-    const root = document.getElementById('folio-main')
+    const root = document.getElementById('mornings-main')
     if (root) {
       const isDesktop = window.matchMedia('(min-width: 640px)').matches
       root.style.transition = 'padding-right 300ms ease'
@@ -47,7 +47,7 @@ export function ArchiveDrawer() {
     if (!open) return
     const close = (e: MouseEvent) => {
       const t = e.target as HTMLElement
-      if (t.closest('[data-folio-drawer]') || t.closest('[data-folio-nav]')) return
+      if (t.closest('[data-mornings-drawer]') || t.closest('[data-mornings-nav]')) return
       setOpen(false)
     }
     document.addEventListener('mousedown', close)
@@ -60,10 +60,10 @@ export function ArchiveDrawer() {
     }
     const openEvt = () => setOpen(true)
     window.addEventListener('keydown', h)
-    window.addEventListener('folio:open-archive', openEvt)
+    window.addEventListener('mornings:open-archive', openEvt)
     return () => {
       window.removeEventListener('keydown', h)
-      window.removeEventListener('folio:open-archive', openEvt)
+      window.removeEventListener('mornings:open-archive', openEvt)
     }
   }, [])
 
@@ -79,7 +79,7 @@ export function ArchiveDrawer() {
         archive
       </button>
       <aside
-        data-folio-drawer
+        data-mornings-drawer
         className={`fixed top-0 right-0 h-full w-full sm:w-[360px] bg-stone-50 sm:border-l border-stone-200 z-30 transition-transform duration-300 ease-out ${
           open ? 'translate-x-0' : 'translate-x-full'
         }`}
