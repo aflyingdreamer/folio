@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Lora, JetBrains_Mono } from 'next/font/google'
 import { SpeedInsights } from '@vercel/speed-insights/next'
+import { Analytics } from '@vercel/analytics/next'
 import { cookies } from 'next/headers'
 import { THEME_COOKIE, isThemeChoice } from '@/lib/settings/theme'
 import './globals.css'
@@ -49,6 +50,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="min-h-screen bg-stone-50 text-stone-900 antialiased">
         {children}
         <SpeedInsights />
+        <Analytics />
       </body>
     </html>
   )
