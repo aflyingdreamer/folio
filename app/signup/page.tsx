@@ -2,6 +2,7 @@
 import Link from 'next/link'
 import { useState } from 'react'
 import { signUp } from '@/lib/auth/actions'
+import { GoogleButton } from '@/components/ui/google-button'
 
 export default function SignupPage() {
   const [err, setErr] = useState<string | null>(null)
@@ -35,6 +36,14 @@ export default function SignupPage() {
       <p className="font-serif text-lg text-stone-500 italic mb-12">
         Three pages. Every morning. For yourself.
       </p>
+
+      <GoogleButton label="sign up with google" />
+
+      <div className="flex items-center gap-3 my-6 text-xs text-stone-400">
+        <span className="h-px flex-1 bg-stone-200" />
+        or
+        <span className="h-px flex-1 bg-stone-200" />
+      </div>
 
       <form onSubmit={onSubmit} className="space-y-5">
         <Field name="name" type="text" placeholder="your name" autoComplete="name" autoFocus />
