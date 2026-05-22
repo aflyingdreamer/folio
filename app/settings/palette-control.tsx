@@ -76,7 +76,7 @@ export function PaletteControl({ initialInterested }: { initialInterested: boole
             <div className="pt-1">
               {interested ? (
                 <p className="font-mono text-xs text-stone-400">
-                  you'll be the first to know.
+                  you&apos;ll be the first to know.
                 </p>
               ) : (
                 <p className="font-serif text-sm text-stone-600">
