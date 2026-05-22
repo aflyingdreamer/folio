@@ -6,6 +6,7 @@ import { DisplayNameForm } from './display-name-form'
 import { PasswordForm } from './password-form'
 import { EmailVerify } from './email-verify'
 import { ThemeControl } from './theme-control'
+import { GoogleLink } from './google-link'
 import { THEME_COOKIE, isThemeChoice, type ThemeChoice } from '@/lib/settings/theme'
 
 export const dynamic = 'force-dynamic'
@@ -55,6 +56,10 @@ export default async function SettingsPage() {
 
       <Row label="password">
         <PasswordForm />
+      </Row>
+
+      <Row label="google">
+        <GoogleLink />
       </Row>
       </div>
     </main>

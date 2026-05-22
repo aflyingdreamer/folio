@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { Suspense, useEffect, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { signIn } from '@/lib/auth/actions'
+import { GoogleButton } from '@/components/ui/google-button'
 
 const errorCopy: Record<string, string> = {
   expired: 'that link has expired. try signing in again.',
@@ -45,6 +46,14 @@ function LoginInner() {
       <p className="font-serif text-lg text-stone-500 italic mb-12">
         Three pages. Every morning. For yourself.
       </p>
+
+      <GoogleButton label="sign in with google" />
+
+      <div className="flex items-center gap-3 my-6 text-xs text-stone-400">
+        <span className="h-px flex-1 bg-stone-200" />
+        or
+        <span className="h-px flex-1 bg-stone-200" />
+      </div>
 
       <form onSubmit={onSubmit} className="space-y-5">
         <Field name="email" type="email" placeholder="your email" autoComplete="email" autoFocus />
