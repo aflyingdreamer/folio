@@ -15,15 +15,24 @@ export default function About() {
 
       <div className="space-y-6 text-stone-600">
         <p className="text-balance">
-          Hi, I&apos;m Brian — just a regular IT guy trying to keep
-          my head above water in the AI era. Most of my days are
-          loud: notifications, models, dashboards, more tabs than
-          I&apos;d like to admit. I made Mornings for the opposite
-          reason — a small, quiet room on the internet where the
-          only thing asked of you is to show up and write.
+          Hi, I&apos;m Brian. I built Mornings in two days — planning
+          to launching — because I needed it.
         </p>
         <p className="text-balance">
-          I started writing morning pages on paper, then on{' '}
+          For years I&apos;ve kept a writing hobby. Notes, Notion,
+          whatever was open. Just clearing the cache in my head.
+          But the &ldquo;for me&rdquo; pages always ended up sitting
+          next to meeting notes and PRDs, and I&apos;d open the app
+          to write something private and get pulled back into work.
+          The container was wrong.
+        </p>
+        <p className="text-balance">
+          I wanted one page on the internet that had no work in it.
+          No notifications, no AI, no feed. Just somewhere quiet to
+          show up and write 750 words.
+        </p>
+        <p className="text-balance">
+          I used{' '}
           <a
             href="https://750words.com"
             className="underline underline-offset-4 decoration-stone-300 hover:decoration-stone-900"
@@ -31,17 +40,22 @@ export default function About() {
             rel="noreferrer"
           >
             750words.com
-          </a>
-          , and it changed how my mornings felt. This app is my
-          tribute to that ritual — to Julia Cameron, who named it,
-          and to Buster Benson, who first put it online.
+          </a>{' '}
+          for years and loved it. It still works — go use it. I just
+          wondered what it would look like if it were built today, so
+          I built that. A tribute to Julia Cameron, who named the
+          ritual, and to Buster Benson, who first put it online.
         </p>
         <p className="text-balance">
-          There are no streaks to defend, no likes to chase, no
-          algorithm watching. Just a page that waits for you each
-          morning, and forgets about you the rest of the day. If
-          that sounds like something you&apos;ve been looking for,
-          you&apos;re in the right place. The ritual is free, forever.
+          It&apos;s mine first. It&apos;s my morning pages and my
+          diary and whatever else I need it to be on a given day.
+          There are no rules. If it&apos;s useful to you too, that&apos;s
+          a bonus.
+        </p>
+        <p className="text-balance">
+          It&apos;s free. I have no plans to monetise it. I have a
+          day job; this is the thing I build in the evenings because
+          I enjoy building things I use every day.
         </p>
       </div>
 
