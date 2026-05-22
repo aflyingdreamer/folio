@@ -6,6 +6,7 @@ import { DisplayNameForm } from './display-name-form'
 import { PasswordForm } from './password-form'
 import { EmailVerify } from './email-verify'
 import { ThemeControl } from './theme-control'
+import { PaletteControl } from './palette-control'
 import { GoogleLink } from './google-link'
 import { THEME_COOKIE, isThemeChoice, type ThemeChoice } from '@/lib/settings/theme'
 
@@ -20,7 +21,7 @@ export default async function SettingsPage() {
 
   const { data: meta } = await supabase
     .from('user_meta')
-    .select('display_name, theme')
+    .select('display_name, theme, palette_interest')
     .eq('user_id', user.id)
     .maybeSingle()
 
@@ -44,6 +45,10 @@ export default async function SettingsPage() {
       <div className="space-y-20">
       <Row label="appearance">
         <ThemeControl initial={initialTheme} />
+      </Row>
+
+      <Row label="palette">
+        <PaletteControl initialInterested={Boolean(meta?.palette_interest)} />
       </Row>
 
       <Row label="display name">
