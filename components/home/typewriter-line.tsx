@@ -6,18 +6,16 @@ const FULL = 'Three pages. Every morning. For yourself.'
 const SPEED_MS = 80
 
 export function TypewriterLine({ ctaHref }: { ctaHref: string }) {
-  const [shown, setShown] = useState('')
-  const [done, setDone] = useState(false)
+  // SSR + first paint show the full text immediately so Lighthouse captures a
+  // fast LCP. On the client we briefly reset and animate if motion is allowed.
+  const [shown, setShown] = useState(FULL)
+  const [done, setDone] = useState(true)
 
   useEffect(() => {
-    const reduced =
-      typeof window !== 'undefined' &&
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    if (reduced) {
-      setShown(FULL)
-      setDone(true)
-      return
-    }
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (reduced) return
+    setShown('')
+    setDone(false)
     let i = 0
     const id = setInterval(() => {
       i += 1
@@ -32,7 +30,10 @@ export function TypewriterLine({ ctaHref }: { ctaHref: string }) {
 
   return (
     <div className="text-center">
-      <p className="font-serif text-4xl sm:text-5xl text-stone-900 leading-tight text-balance">
+      <p
+        className="font-serif text-4xl sm:text-5xl text-stone-900 leading-tight text-balance"
+        suppressHydrationWarning
+      >
         {shown}
         <span
           aria-hidden

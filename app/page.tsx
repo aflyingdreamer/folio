@@ -1,15 +1,22 @@
 import Link from 'next/link'
+import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { TypewriterLine } from '@/components/home/typewriter-line'
 
 export default async function Home() {
-  const supabase = createClient()
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
-
-  if (user) redirect('/today')
+  // Skip the Supabase auth round-trip for visitors with no auth cookie
+  // (Lighthouse, first-time visitors). Keeps landing TTFB tiny on mobile.
+  const hasAuthCookie = cookies()
+    .getAll()
+    .some((c) => c.name.startsWith('sb-') && c.name.includes('auth-token'))
+  if (hasAuthCookie) {
+    const supabase = createClient()
+    const {
+      data: { user },
+    } = await supabase.auth.getUser()
+    if (user) redirect('/today')
+  }
 
   const year = new Date().getFullYear()
 

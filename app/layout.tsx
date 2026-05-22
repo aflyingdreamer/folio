@@ -7,8 +7,19 @@ import { THEME_COOKIE, isThemeChoice } from '@/lib/settings/theme'
 import './globals.css'
 import '@/components/ui/font-styles.css'
 
-const serif = Lora({ subsets: ['latin'], variable: '--font-serif' })
-const mono  = JetBrains_Mono({ subsets: ['latin'], variable: '--font-mono', weight: ['400', '500'] })
+const serif = Lora({
+  subsets: ['latin'],
+  variable: '--font-serif',
+  display: 'swap',
+  weight: ['400', '500'],
+})
+const mono = JetBrains_Mono({
+  subsets: ['latin'],
+  variable: '--font-mono',
+  display: 'swap',
+  weight: ['400', '500'],
+  preload: false,
+})
 
 export const metadata: Metadata = {
   title: 'Mornings',
