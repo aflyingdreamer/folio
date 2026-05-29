@@ -22,8 +22,47 @@ const mono = JetBrains_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'Mornings',
-  description: 'A daily writing space. A tribute to morning pages.',
+  metadataBase: new URL('https://mornings.page'),
+  title: {
+    default: 'Mornings — a quiet place to write your morning pages',
+    template: '%s · Mornings',
+  },
+  description:
+    'A small, calm web app for the morning pages ritual — 750 words a day, written for yourself. A tribute to Julia Cameron and Buster Benson.',
+  applicationName: 'Mornings',
+  keywords: [
+    'morning pages',
+    'morning pages online',
+    'morning pages app',
+    'daily writing',
+    'journaling',
+    'julia cameron',
+    'the artist\u2019s way',
+    '750 words',
+  ],
+  authors: [{ name: 'Brian (Duc Anh)' }],
+  creator: 'Brian (Duc Anh)',
+  alternates: { canonical: '/' },
+  openGraph: {
+    type: 'website',
+    url: 'https://mornings.page',
+    siteName: 'Mornings',
+    title: 'Mornings — a quiet place to write your morning pages',
+    description:
+      'Show up, write 750 words, close the tab. A tribute to morning pages.',
+    locale: 'en_US',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Mornings — a quiet place to write your morning pages',
+    description:
+      'Show up, write 750 words, close the tab. A tribute to morning pages.',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, 'max-image-preview': 'large' },
+  },
 }
 
 // Inline, runs before paint. Resolves 'system' against matchMedia so we set
@@ -59,6 +98,36 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
       <body className="min-h-screen bg-stone-50 text-stone-900 antialiased">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@graph': [
+                {
+                  '@type': 'WebSite',
+                  '@id': 'https://mornings.page/#website',
+                  url: 'https://mornings.page',
+                  name: 'Mornings',
+                  description:
+                    'A quiet place to write your morning pages — 750 words a day, for yourself.',
+                  inLanguage: 'en',
+                },
+                {
+                  '@type': 'SoftwareApplication',
+                  '@id': 'https://mornings.page/#app',
+                  name: 'Mornings',
+                  applicationCategory: 'LifestyleApplication',
+                  operatingSystem: 'Web',
+                  url: 'https://mornings.page',
+                  description:
+                    'A small web app for the morning pages ritual. A tribute to Julia Cameron and Buster Benson.',
+                  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+                },
+              ],
+            }),
+          }}
+        />
         {children}
         <SpeedInsights />
         <Analytics />
