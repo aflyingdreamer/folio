@@ -58,6 +58,23 @@ export async function saveTheme(choice: ThemeChoice) {
   return { error: null, ok: true }
 }
 
+export async function recordPaletteInterest() {
+  const supabase = createClient()
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
+  if (!user) return { error: 'please sign in again.' }
+
+  const { error } = await supabase
+    .from('user_meta')
+    .upsert(
+      { user_id: user.id, palette_interest: true },
+      { onConflict: 'user_id' },
+    )
+  if (error) return { error: error.message.toLowerCase() }
+  return { error: null, ok: true }
+}
+
 export async function resendEmailConfirmation() {
   const supabase = createClient()
   const {
