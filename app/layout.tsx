@@ -4,6 +4,7 @@ import { SpeedInsights } from '@vercel/speed-insights/next'
 import { Analytics } from '@vercel/analytics/next'
 import { cookies } from 'next/headers'
 import { THEME_COOKIE, isThemeChoice } from '@/lib/settings/theme'
+import { FirstTouchCapture } from '@/components/attribution/first-touch-capture'
 import './globals.css'
 import '@/components/ui/font-styles.css'
 
@@ -128,6 +129,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             }),
           }}
         />
+        <FirstTouchCapture />
         {children}
         <SpeedInsights />
         <Analytics />

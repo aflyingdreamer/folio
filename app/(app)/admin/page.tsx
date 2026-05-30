@@ -10,6 +10,12 @@ type Row = {
   timezone: string
   theme: string
   palette_interest: boolean
+  first_source: string | null
+  first_medium: string | null
+  first_campaign: string | null
+  first_referrer: string | null
+  first_landing_path: string | null
+  first_landing_at: string | null
   joined_at: string
   last_sign_in_at: string | null
   email_confirmed_at: string | null
@@ -72,6 +78,9 @@ export default async function AdminPage() {
               <Th>joined</Th>
               <Th>last seen</Th>
               <Th>palette?</Th>
+              <Th>source</Th>
+              <Th>medium</Th>
+              <Th>referrer / landing</Th>
             </tr>
           </thead>
           <tbody>
@@ -93,6 +102,16 @@ export default async function AdminPage() {
                 <Td>{ymd(r.joined_at)}</Td>
                 <Td>{ymd(r.last_sign_in_at)}</Td>
                 <Td>{r.palette_interest ? 'yes' : <span className="text-stone-400">no</span>}</Td>
+                <Td>{r.first_source ?? <span className="text-stone-400">direct</span>}</Td>
+                <Td>{r.first_medium ?? <span className="text-stone-400">—</span>}</Td>
+                <Td>
+                  {r.first_referrer ? (
+                    <div className="max-w-xs truncate" title={r.first_referrer}>{r.first_referrer}</div>
+                  ) : (
+                    <span className="text-stone-400">—</span>
+                  )}
+                  <div className="text-stone-400">{r.first_landing_path ?? '—'}</div>
+                </Td>
               </tr>
             ))}
           </tbody>

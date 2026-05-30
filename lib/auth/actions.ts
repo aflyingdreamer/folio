@@ -2,6 +2,7 @@
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import { headers } from 'next/headers'
+import { applyFirstTouch } from '@/lib/attribution/apply'
 
 function origin() {
   const h = headers()
@@ -31,6 +32,7 @@ export async function signUp(formData: FormData) {
     await supabase
       .from('user_meta')
       .upsert({ user_id: data.user.id, display_name: name }, { onConflict: 'user_id' })
+    await applyFirstTouch(supabase, data.user.id)
   }
 
   if (!data.session) {
