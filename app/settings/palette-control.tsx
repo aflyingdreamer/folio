@@ -35,7 +35,7 @@ export function PaletteControl({ initialInterested }: { initialInterested: boole
 
   return (
     <div className="space-y-3">
-      <div className="flex items-center gap-3 font-mono text-xs">
+      <div className="flex items-center gap-3 font-mono text-xs pt-2">
         <span className="text-stone-700">paper</span>
         <button
           onClick={() => setOpen((v) => !v)}
